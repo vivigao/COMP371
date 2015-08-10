@@ -184,5 +184,5 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const{
 		}
 	}
 
-	return tr * sc * quatRo;//tr * sc * ro
+	return tr * quatRo * sc;//tr * sc * ro
 }

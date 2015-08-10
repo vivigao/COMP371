@@ -175,8 +175,6 @@ void World::Draw(){
 		(*it)->Draw();//*/
 
 
-
-
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
 	Renderer::EndFrame();

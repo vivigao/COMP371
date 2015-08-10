@@ -1,20 +1,16 @@
-//
 // COMP 371 Assignment Framework
 //
 // Created by Nicolas Bergeron on 8/7/14.
 // Updated by Gary Chang on 14/1/15
 //
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
-//
 
 #include "SphereModel.h"
 #include "Renderer.h"
 #include <GL/glew.h>
-
 using namespace glm;
 
-SphereModel::SphereModel(vec3 size) : Model()
-{
+SphereModel::SphereModel() : Model(){
     Vertex vertexBuffer[] = {
         // position,                                    normal,                              color
         { vec3(0.000000, 0.000000, -1.000000), vec3(0.000000, 0.000000, -1.000000), vec3(1.0f, 0.05f, 0.05f) },

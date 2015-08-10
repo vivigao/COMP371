@@ -13,7 +13,7 @@
 
 class SphereModel : public Model{
 public:
-	SphereModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	SphereModel();
     virtual ~SphereModel(void);
 
     virtual void Update(float dt);

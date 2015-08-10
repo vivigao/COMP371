@@ -1,4 +1,4 @@
-//#include <GL/glut.h>
+#include <GL/glew.h>
 #include "Model.h"
 #include <vector>
 using namespace std;
@@ -6,13 +6,13 @@ using namespace glm;
 
 class BSpline : public Model{
 public:
-	BSpline(vec3 color = vec3(1.0f, 1.0f, 1.0f));
+	BSpline(vec3 color = vec3(0.0f, 0.0f, 1.0f));
 	virtual~BSpline(void);
 
 	virtual void Draw();
 	virtual void Update(float dt);
 
-	float* GetPoint(const int& i);
+	float* GetPoint(const int& i, float(&cpts)[92][3]);
 	static void setFunctions();
 
 protected:
@@ -24,6 +24,8 @@ private:
 		glm::vec3 normal;
 		glm::vec3 color;
 	};
+
+	static vector<vec3> Spline1, Spline2;
 
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
