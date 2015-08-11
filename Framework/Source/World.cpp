@@ -171,7 +171,7 @@ void World::Draw(){
 
 
 	//TODO Draw Spline
-	for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
+/*	for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
 		(*it)->Draw();//*/
 
 
