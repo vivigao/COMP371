@@ -11,8 +11,14 @@
 #include "Billboard.h"
 #include "TextureLoader.h"
 #include "BSpline.h"
-#include <GL/glut.h>
-//#include <GL/glut.h>
+
+#if defined(PLATFORM_OSX)
+  #include <GLUT/glut.h>
+#else
+  #include <GL/glut.h>
+#endif
+//#include <OpenGL/gl.h>
+
 
 int main(int argc, char*argv[]){
 	EventManager::Initialize();
@@ -22,9 +28,6 @@ int main(int argc, char*argv[]){
 	if (argc > 1)
 		world.LoadScene(argv[1]);
 	else{
-		// TODO - You can alternate between different scenes for testing different things
-		// Static Scene contains no animation
-		// Animated Scene does
 #if defined(PLATFORM_OSX)	
 		world.LoadScene("Scenes/project.scene");
 		//world.LoadScene("Scenes/AnimatedSceneWithParticles.scene");
