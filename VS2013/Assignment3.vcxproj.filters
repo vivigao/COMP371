@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\Source\main.cpp" />
+    <ClCompile Include="..\Source\shader.cpp" />
+    <ClCompile Include="..\Source\sphere.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\shader.h" />
+    <ClInclude Include="..\Source\sphere.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{c5c2a4c9-1145-4e02-998c-072f58b68650}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Shaders\SolidColor_Lighting.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\SolidColor_Lighting.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
