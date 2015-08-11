@@ -116,8 +116,8 @@ float* BSpline::GetPoint(const int& i, float (&cpts)[92][3]){
 
 BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(50) {
 
-	bool first = !Spline1.size(), second = !Spline2.size();
-	const int vBsize = (!(first&&second) ? 4600 : 920);
+	//bool first = !Spline1.size(), second = !Spline2.size();
+	//const int vBsize = (!(first&&second) ? 4600 : 920);
 	Vertex vertexBuffer[4600]; //vBsize
 	float t, it, b0, b1, b2, b3;
 	vec3 pos;
