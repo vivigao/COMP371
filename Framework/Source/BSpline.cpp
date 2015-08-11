@@ -2,11 +2,23 @@
 //#include <GL/glut.h>
 #include "BSpline.h"
 #include "Renderer.h"
+#include "SphereModel.h"
+#include <stdio.h>
+#include <string>
 #include <vector>
 
 using namespace std;
 using namespace glm;
 
+/*
+
+[BSpline]
+name		= "BSpline"
+scaling		= 1.0 1.0 1.0
+position	= 0.0 3.5 0.0
+rotation	= 0.0 0.0 1.0 90*/
+
+bool done = false;
 float cpts[92][3] = {
 		{ 10, 7, 0.2 },
 		{ 10, 8, 0.21 },
@@ -114,18 +126,22 @@ float* BSpline::GetPoint(const int& i, float (&cpts)[92][3]){
 	return cpts[sizeof(cpts) - 1];
 }//*/
 
-BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(50) {
+BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
 
-	bool first = !Spline1.size(), second = !Spline2.size();
-	const int vBsize = (!(first&&second) ? 4600 : 920);
-	Vertex vertexBuffer[4600]; //vBsize
+//	bool first = Spline1.empty(), second = Spline2.empty() == 0;
+	Vertex vertexBuffer[1840]; //vBsize
+//	Vertex middle[920];
 	float t, it, b0, b1, b2, b3;
 	vec3 pos;
 	int j, i;
-	
+	FILE * sceneF;
 
-//	if (first || second){
-		Vertex vBuffer[4600];
+	if(!done)
+		sceneF = fopen ("../Assets/Scenes/spline.scene","w+");
+
+	string a = "\n[Animation]\nname = \"splineAnime\"\n", aKey;//*/
+
+//	if ( Spline1.empty() || Spline2.empty()){
 		for (j = 0; j < noOfPoints; j++){
 			// for each section of curve, draw LOD number of divisions  
 			for (i = 0; i != LOD; ++i){
@@ -156,35 +172,73 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(50) {
 
 				// specify the point
 				//	glVertex3f(x, y, z);
-				vertexBuffer[j*LOD + i] = { pos, pos, color };
-/*				if (first)
+				vertexBuffer[j*LOD + i].position = pos;
+				vertexBuffer[j*LOD + i].normal = pos;
+				vertexBuffer[j*LOD + i].color = color;
+/*				if (Spline1.size() == 0 && Spline2.size() == 0)
 					Spline1.push_back(pos);
-				else if (second)
+				else
 					Spline2.push_back(pos);//*/
+			//	SplineV.push_back(pos);
+
+				if(!done){
+
+					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string((j*LOD + i)*0.1) + "f\n";
+	//				cout << a << endl;
+
+					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + "\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n\n";
+					const char* temp = aKey.c_str();
+					fputs (	temp,sceneF);
+				}//*/
 			}
 		}
-//	}
-/*	else{
-		for (i = 0, j = sizeof(vertexBuffer) - 1; i < sizeof(vertexBuffer) - 1; i += 5, j += 2){
-			vertexBuffer[j] = { vertexBuffer[i].position, vertexBuffer[i].position, color };
-			pos.x = vertexBuffer[j].position.x;
-			pos.y = vertexBuffer[j].position.y;
-			pos.z = vertexBuffer[j].position.z;
-			vertexBuffer[j + 1] = { pos, pos, color };
-		}
-	}//*/
-	numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
+		numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 
-	glGenVertexArrays(1, &mVertexArrayID);
-	glGenBuffers(1, &mVertexBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);//*/
+		glGenVertexArrays(1, &mVertexArrayID);
+		glGenBuffers(1, &mVertexBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);//*/
+
+
+	  if (!done && sceneF!=NULL){
+		const char* temp = a.c_str();
+		fputs (	temp,sceneF);
+		fclose (sceneF);
+		done = true;
+	  }//*/
+/*	}
+	else{
+		for (i = 0, j = 0; i < sizeof(vertexBuffer) - 1; i += 5, j += 2){
+			middle[j].position = Spline1[i];
+			middle[j].normal = Spline1[i];
+			middle[j].color = color;
+
+		//	pos.x = vertexBuffer[j].position.x;
+		//	pos.y = vertexBuffer[j].position.y;
+		//	pos.z = vertexBuffer[j].position.z;
+			middle[j + 1].position = Spline2[i];
+			middle[j + 1].normal = Spline2[i];
+			middle[j + 1].color = color;
+		}
+		numOfVertices = sizeof(middle) / sizeof(Vertex);
+
+		glGenVertexArrays(1, &mVertexArrayID);
+		glGenBuffers(1, &mVertexBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(middle), middle, GL_STATIC_DRAW);
+	}//*/
 }
 
 BSpline::~BSpline(){
 	// Free the GPU from the Vertex Buffer
 	glDeleteBuffers(1, &mVertexBufferID);
 	glDeleteVertexArrays(1, &mVertexArrayID);
+
+	if( remove( "spline.scene" ) != 0 )
+		perror( "Error deleting file" );
+	else
+		puts( "File successfully deleted" );//*/
+
 }
 
 void BSpline::Draw(){
@@ -230,7 +284,10 @@ void BSpline::Draw(){
 		);
 
 	// Draw the triangles !
-	glDrawArrays(GL_LINE_STRIP, 0, noOfPoints * LOD - 150); // GL_QUAD_STRIP
+//	if(Spline1.size() || Spline2.size())
+		glDrawArrays(GL_LINE_STRIP, 0, noOfPoints * LOD - 54); // GL_QUAD_STRIP
+//	else
+//		glDrawArrays(GL_LINES, 0, 920);
 
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);

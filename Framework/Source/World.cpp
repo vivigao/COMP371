@@ -60,7 +60,7 @@ World::~World(){
 		delete *it;
 	mModel.clear();
 
-/*	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
+	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
 		delete *it;
 	mAnimation.clear();
 
@@ -101,7 +101,7 @@ void World::Update(float dt){
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 		Renderer::SetShader(SHADER_BLUE);
 
-/*    // Update animation and keys
+    // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
         (*it)->Update(dt);
     for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
@@ -110,7 +110,7 @@ void World::Update(float dt){
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
 
-/*	// Update models
+	// Update models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 		(*it)->Update(dt);//*/
 
@@ -152,7 +152,7 @@ void World::Draw(){
 	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
-/*	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it){
+	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it){
 		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
 		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
@@ -209,7 +209,7 @@ void World::LoadScene(const char * scene_path){
                 sphere->Load(iss);
                 mModel.push_back(sphere);
             }
-/*			else if ( result == "animationkey" ){
+			else if ( result == "animationkey" ){
 				AnimationKey* key = new AnimationKey();
 				key->Load(iss);
 				mAnimationKey.push_back(key);
