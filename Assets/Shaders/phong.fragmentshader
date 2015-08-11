@@ -1,0 +1,68 @@
+#version 330 core
+
+
+// Light and Material Uniform Variables
+uniform float materialAmbient; // Ambient Term
+uniform float materialDiffuse; // Diffuse Term
+uniform float materialSpecular; // Specular Term
+uniform float materialExponent; // Specular Exponent
+
+uniform vec3 lightColor;
+uniform vec3 lightAttenuation; // x: Constant  y: Linear  z: Quadratic
+
+
+// Inputs
+in vec4 v_color;		 // vertex color: also diffuse color
+
+in vec3 normal;          // Transformed normal in View Space
+in vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
+in vec4 lightVector;     // Vector from the vertex to the Light in View Space
+						 // Length of lightVector is the distance between light and vertex
+						 // if w = 1: Point light, if w = 0: directional light
+						  
+// Ouput data
+out vec4 color;
+
+
+void main()
+{
+	// Implment Phong Shading based on the parameters above
+	// Remember that directional light don't have attenuation
+
+	// compute light distance and light, normal, and eye direction toward the object
+	vec3 lightDirection		= normalize(vec3(lightVector)),
+		 normalDirection	= normalize(normal),
+		 eyeDirection		= normalize(eyeVector);
+	
+	float lightDistance = length(vec3(lightVector)),
+		  attenuation = 1,
+		  dotP = dot(normalDirection, lightDirection);
+
+	if (lightVector.w == 1)  // compute attenuation if this is a point light
+		attenuation = 1 / (lightAttenuation.x + (lightAttenuation.y * lightDistance) + 
+								(lightAttenuation.z * lightDistance * lightDistance));
+
+	vec3 lightIntensity	= attenuation * lightColor;
+	
+	// compute ambient and diffused light
+	vec4 specular, 
+		ambient = vec4(lightColor * materialAmbient, 1),
+		diffuse = vec4(lightIntensity * materialDiffuse * max(0, dotP), 1);
+
+	diffuse = clamp(diffuse, 0, 1); 
+		
+	// if dot product of normal and light is greater than 0, there is reflection/specular of light
+	if ( dotP > 0 ) {
+
+		vec3 reflection = 2 * (dotP * normalDirection) - lightDirection;
+		//normalize( reflect(-lightDirection, normalDirection) );
+		specular = vec4( lightIntensity * materialSpecular * 
+						pow(max(0, dot(reflection, eyeDirection)), materialExponent), 1);
+		specular = clamp(specular, 0, 1);
+	}
+
+	color = (ambient + diffuse + specular) * v_color;
+	//===========================================================;
+	//color = v_color; original
+
+}
