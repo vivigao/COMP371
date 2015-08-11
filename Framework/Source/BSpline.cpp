@@ -126,7 +126,7 @@ float* BSpline::GetPoint(const int& i, float (&cpts)[92][3]){
 	return cpts[sizeof(cpts) - 1];
 }//*/
 
-BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
+BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 
 //	bool first = Spline1.empty(), second = Spline2.empty() == 0;
 	Vertex vertexBuffer[1840]; //vBsize
@@ -182,15 +182,18 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
 			//	SplineV.push_back(pos);
 
 				if(!done){
-
-					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string((j*LOD + i)*0.1) + "f\n";
-	//				cout << a << endl;
-
-					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + "\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n\n";
+					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string((j*LOD + i)*0.01) + "f\n";
+					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + "\"\nposition = " + to_string(pos.x) + " " + to_string(-pos.z) + " " + to_string(pos.y) + "\n\n";
+					
 					const char* temp = aKey.c_str();
 					fputs (	temp,sceneF);
+
+					if ((j*LOD + i) == 1760)
+						break;
 				}//*/
 			}
+			if ((j*LOD + i) == 1760)
+				break;
 		}
 		numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 
@@ -201,6 +204,8 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
 
 
 	  if (!done && sceneF!=NULL){
+		  a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 1.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
+
 		const char* temp = a.c_str();
 		fputs (	temp,sceneF);
 		fclose (sceneF);
@@ -285,7 +290,7 @@ void BSpline::Draw(){
 
 	// Draw the triangles !
 //	if(Spline1.size() || Spline2.size())
-		glDrawArrays(GL_LINE_STRIP, 0, noOfPoints * LOD - 54); // GL_QUAD_STRIP
+		glDrawArrays(GL_LINE_STRIP, 0, noOfPoints * LOD - 60); // GL_QUAD_STRIP
 //	else
 //		glDrawArrays(GL_LINES, 0, 920);
 
