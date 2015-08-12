@@ -12,7 +12,6 @@ using namespace std;
 using namespace glm;
 
 /*
-
 [BSpline]
 name		= "BSpline"
 scaling		= 1.0 1.0 1.0
@@ -20,7 +19,7 @@ position	= 0.0 3.5 0.0
 rotation	= 0.0 0.0 1.0 90*/
 
 bool done = false;
-float acceleration = 9.8, velocity = 0, slope, angle, actualSpeed = 10, lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.00000001, dist, totalDist = 264.93;
+float acceleration = 9.8, velocity = 0, slope, angle, actualSpeed = 10, lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist, totalDist = 264.93;
 float cpts[92][3] = {
 		{ 10, 7, 0.2 },
 		{ 10, 8, 0.21 },
@@ -136,11 +135,10 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 	float t, it, b0, b1, b2, b3;
 	vec3 pos;
 	int j, i;
-	FILE * sceneF;
 
+	FILE * sceneF;
 	if(!done)
 		sceneF = fopen ("../Assets/Scenes/spline.scene","w+");
-
 	string a = "\n[Animation]\nname = \"splineAnime\"\n", aKey;//*/
 
 //	if ( Spline1.empty() || Spline2.empty()){
@@ -184,6 +182,46 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 			//	SplineV.push_back(pos);
 
 				if(!done){
+
+					if (lastX == 0 && lastY == 0 && lastX == 0){
+						dist = 0.0001;
+						slope = 0;
+					}
+					else{
+						dist = pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2) + pow(lastZ - pos.z, 2), 0.5);
+						slope = (lastY - pos.y) / pow(pow(lastX - pos.x, 2) + pow(lastZ - pos.z, 2), 0.5);
+					}
+
+					//		if (slope > -0.001 && slope < .001)
+					//			angle = 0;
+					//		else
+					//			angle = acos((lastX - pos.x) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5));
+
+					if (slope < 0)
+						velocity = acceleration * slope;
+					else if (slope > 0)
+						velocity = acceleration * slope;
+					else{
+						if (actualSpeed > 10){
+							velocity = -0.02;
+							if (velocity < 0)
+								velocity = 0;
+						}
+						else if (actualSpeed < 10){
+							velocity = 0.0123;
+							if (velocity > 0)
+								velocity = 0;
+						}
+					}
+
+					actualSpeed += velocity * 0.77; // assume ground resistance = 0.77
+					if (actualSpeed < 5)
+						actualSpeed = 5;
+					else if (actualSpeed > 15)
+						actualSpeed = 15;
+					totalTime += (dist / actualSpeed);//*/
+
+					//if not using time = totalTime, using time = (j*LOD + i) * 0.01
 					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
 					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + "\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n\n";
 					
@@ -192,47 +230,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 
 					if ((j*LOD + i) == 1760)
 						break;
-/*					if (lastX == 0 && lastY == 0 && lastX == 0){
-						dist = 0.0001;
-						slope = 0;
-					}
-					else{
-						dist = pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2) + pow(lastZ - pos.z, 2), 0.5);
-						slope = (lastY - pos.y) / (lastX - pos.x);
-					}
-						
-			//		if (slope > -0.001 && slope < .001)
-			//			angle = 0;
-			//		else
-			//			angle = acos((lastX - pos.x) / dist);
-
-
-					if (slope < 0)
-						velocity = acceleration * -slope;
-					else if (slope > 0)
-						velocity = acceleration * -slope;
-					else{
-						if (actualSpeed > 10){
-							velocity = -0.21;
-							if (velocity < 0)
-								velocity = 0;
-						}
-						else if (actualSpeed < 10){
-							velocity = 0.123;
-							if (velocity > 0)
-								velocity = 0;
-						}
-					}
-
-					actualSpeed += velocity;
-					if (actualSpeed < 1)
-						actualSpeed = 1;
-					else if (actualSpeed > 19)
-						actualSpeed = 19;
 					
-					
-						totalTime += (dist / actualSpeed) ;//*/
-
 					lastY = pos.y;
 					lastX = pos.x;
 					lastZ = pos.z;
@@ -240,6 +238,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 			}
 			if ((j*LOD + i) == 1760)
 				break;//*/
+
 		}
 		numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 
@@ -249,14 +248,14 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);//*/
 
 
-	  if (!done && sceneF!=NULL){
-		  a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 1.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
+	if (!done && sceneF!=NULL){
+		a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 1.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
 
 		const char* temp = a.c_str();
 		fputs (	temp,sceneF);
 		fclose (sceneF);
 		done = true;
-	  }//*/
+	}//*/
 /*	}
 	else{
 		for (i = 0, j = 0; i < sizeof(vertexBuffer) - 1; i += 5, j += 2){
