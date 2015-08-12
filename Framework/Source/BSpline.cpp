@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <math.h> 
 
 using namespace std;
 using namespace glm;
@@ -19,6 +20,7 @@ position	= 0.0 3.5 0.0
 rotation	= 0.0 0.0 1.0 90*/
 
 bool done = false;
+float acceleration = 9.8, velocity = 0, slope, angle, actualSpeed = 10, lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.00000001, dist, totalDist = 264.93;
 float cpts[92][3] = {
 		{ 10, 7, 0.2 },
 		{ 10, 8, 0.21 },
@@ -126,7 +128,7 @@ float* BSpline::GetPoint(const int& i, float (&cpts)[92][3]){
 	return cpts[sizeof(cpts) - 1];
 }//*/
 
-BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
+BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 
 //	bool first = Spline1.empty(), second = Spline2.empty() == 0;
 	Vertex vertexBuffer[1840]; //vBsize
@@ -160,12 +162,12 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
 					b2 * GetPoint(j + 2, cpts)[0] +
 					b3 * GetPoint(j + 3, cpts)[0];
 
-				pos.y = b0 * GetPoint(j, cpts)[1] +
+				pos.z = -(b0 * GetPoint(j, cpts)[1] +
 					b1 * GetPoint(j + 1, cpts)[1] +
 					b2 * GetPoint(j + 2, cpts)[1] +
-					b3 * GetPoint(j + 3, cpts)[1];
+					b3 * GetPoint(j + 3, cpts)[1]);
 
-				pos.z = b0 * GetPoint(j, cpts)[2] +
+				pos.y = b0 * GetPoint(j, cpts)[2] +
 					b1 * GetPoint(j + 1, cpts)[2] +
 					b2 * GetPoint(j + 2, cpts)[2] +
 					b3 * GetPoint(j + 3, cpts)[2];
@@ -182,15 +184,62 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
 			//	SplineV.push_back(pos);
 
 				if(!done){
-
-					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string((j*LOD + i)*0.1) + "f\n";
-	//				cout << a << endl;
-
+					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
 					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + "\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n\n";
+					
 					const char* temp = aKey.c_str();
 					fputs (	temp,sceneF);
+
+					if ((j*LOD + i) == 1760)
+						break;
+/*					if (lastX == 0 && lastY == 0 && lastX == 0){
+						dist = 0.0001;
+						slope = 0;
+					}
+					else{
+						dist = pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2) + pow(lastZ - pos.z, 2), 0.5);
+						slope = (lastY - pos.y) / (lastX - pos.x);
+					}
+						
+			//		if (slope > -0.001 && slope < .001)
+			//			angle = 0;
+			//		else
+			//			angle = acos((lastX - pos.x) / dist);
+
+
+					if (slope < 0)
+						velocity = acceleration * -slope;
+					else if (slope > 0)
+						velocity = acceleration * -slope;
+					else{
+						if (actualSpeed > 10){
+							velocity = -0.21;
+							if (velocity < 0)
+								velocity = 0;
+						}
+						else if (actualSpeed < 10){
+							velocity = 0.123;
+							if (velocity > 0)
+								velocity = 0;
+						}
+					}
+
+					actualSpeed += velocity;
+					if (actualSpeed < 1)
+						actualSpeed = 1;
+					else if (actualSpeed > 19)
+						actualSpeed = 19;
+					
+					
+						totalTime += (dist / actualSpeed) ;//*/
+
+					lastY = pos.y;
+					lastX = pos.x;
+					lastZ = pos.z;
 				}//*/
 			}
+			if ((j*LOD + i) == 1760)
+				break;//*/
 		}
 		numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 
@@ -201,6 +250,8 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(18) {
 
 
 	  if (!done && sceneF!=NULL){
+		  a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 1.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
+
 		const char* temp = a.c_str();
 		fputs (	temp,sceneF);
 		fclose (sceneF);
@@ -285,7 +336,7 @@ void BSpline::Draw(){
 
 	// Draw the triangles !
 //	if(Spline1.size() || Spline2.size())
-		glDrawArrays(GL_LINE_STRIP, 0, noOfPoints * LOD - 54); // GL_QUAD_STRIP
+		glDrawArrays(GL_LINE_STRIP, 0, noOfPoints * LOD - 60); // GL_QUAD_STRIP
 //	else
 //		glDrawArrays(GL_LINES, 0, 920);
 

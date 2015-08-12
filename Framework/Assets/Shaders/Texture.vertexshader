@@ -19,7 +19,7 @@ out vec2 UV;
 void main()
 {
 	// Output position of the vertex, in clip space : MVP * position
-    gl_Position =  ViewProjectionTransform * WorldTransform * vec4(vertexPosition_modelspace, 1.0f);
+    gl_Position =  ViewProjectionTransform * WorldTransform * vec4(vertexPosition_modelspace, 1.0);
 
     normal = vertexNormal_modelspace; // Does this need to be transformed when we pass it to the fragment shader?
 	v_color = vertexColor;

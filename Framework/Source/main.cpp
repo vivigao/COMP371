@@ -11,8 +11,6 @@
 #include "Billboard.h"
 #include "TextureLoader.h"
 #include "BSpline.h"
-#include <GL/glut.h>
-//#include <GL/glut.h>
 
 int main(int argc, char*argv[]){
 	EventManager::Initialize();
@@ -26,15 +24,16 @@ int main(int argc, char*argv[]){
 		// Static Scene contains no animation
 		// Animated Scene does
 #if defined(PLATFORM_OSX)	
-		world.LoadScene("Scenes/project.scene");
 		//world.LoadScene("Scenes/AnimatedSceneWithParticles.scene");
+		world.LoadScene("Scenes/project.scene");
+		world.LoadScene("Scenes/spline.scene");
 		//		world.LoadScene("Scenes/AnimatedScene.scene");
 		//		world.LoadScene("Scenes/StaticScene.scene");
 		//		world.LoadScene("Scenes/CoordinateSystem.scene");
 #else
-		//world.LoadScene("../Assets/Scenes/project.scene");
-		//world.LoadScene("../Assets/Scenes/spline.scene");
-		world.LoadScene("../Assets/Scenes/AnimatedSceneWithParticles.scene");
+		//world.LoadScene("../Assets/Scenes/AnimatedSceneWithParticles.scene");
+		world.LoadScene("../Assets/Scenes/project.scene");
+		world.LoadScene("../Assets/Scenes/spline.scene");
 		//		world.LoadScene("../Assets/Scenes/AnimatedScene.scene");
 		//		world.LoadScene("../Assets/Scenes/StaticScene.scene");
 		//		world.LoadScene("../Assets/Scenes/CoordinateSystem.scene");

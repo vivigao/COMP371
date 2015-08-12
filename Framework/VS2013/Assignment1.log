@@ -1,15 +1,17 @@
-﻿Build started 2015-08-10 10:12:26 PM.
+﻿Build started 2015-08-12 12:30:17 AM.
      1>Project "C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\Assignment1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/FreeImage-3170/Source" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/" /Fd"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\BSpline.cpp ..\Source\World.cpp ..\Source\main.cpp
-         main.cpp
-         World.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/FreeImage-3170/Source" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/" /Fd"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\BSpline.cpp
          BSpline.cpp
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(107): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(132): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(23): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(117): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(142): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(142): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         Generating Code...
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(152): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(196): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(200): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(216): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(221): warning C4305: '=' : truncation from 'double' to 'float'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\mike\Desktop\u4\comp371\assignment\Assignment3\Framework\ThirdParty\glutcu\lib /LIBPATH:"../ThirdParty/FreeImage-3170/lib/win32" /LIBPATH:"../ThirdParty/glew-1.10.0/lib/Release/Win32" /LIBPATH:"../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110" FreeImage.lib opengl32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.lib" /MACHINE:X86 C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/Animation.obj
          C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/Billboard.obj
@@ -28,12 +30,9 @@
          C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/StaticCamera.obj
          C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/TextureLoader.obj
          C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/World.obj
-     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\mike\Desktop\u4\comp371\project\Framework\Bin\vc100.pdb'; linking object as if no debug info
          Assignment1.vcxproj -> C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.exe
      1>Done Building Project "C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\Assignment1.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:06.90
+Time Elapsed 00:00:02.24
