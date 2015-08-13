@@ -104,7 +104,7 @@ void World::Update(float dt){
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
         (*it)->Update(dt);
-    for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
+/*    for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
         (*it)->Update(dt);//*/
 
 	// Update current Camera
@@ -118,8 +118,7 @@ void World::Update(float dt){
     for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
         (*it)->Update(dt);
     mpBillboardList->Update(dt);//*/
-
-
+	
 	// Update Spline
 /*	for (vector<BSpline*>::iterator it = mBSpline.begin(); it != mBSpline.end(); ++it)
 		(*it)->Update(dt);//*/
@@ -158,7 +157,7 @@ void World::Draw(){
 
 		(*it)->Draw();
 	}
-	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it){
+/*	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it){
 		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
 		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
@@ -169,11 +168,9 @@ void World::Draw(){
     // Draw Billboards
 //    mpBillboardList->Draw();
 
-
-	//TODO Draw Spline
+	//Draw Spline
 /*	for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
 		(*it)->Draw();//*/
-
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);

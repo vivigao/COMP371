@@ -19,7 +19,8 @@ position	= 0.0 3.5 0.0
 rotation	= 0.0 0.0 1.0 90*/
 
 bool done = false;
-float acceleration = 9.8, velocity = 0, slope, angle, actualSpeed = 10, lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist, totalDist = 264.93;
+float acceleration = 9.8, velocity = 0, slope, actualSpeed = 10, hSlope, hAngle,
+		lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist;
 float cpts[92][3] = {
 		{ 10, 7, 0.2 },
 		{ 10, 8, 0.21 },
@@ -171,7 +172,6 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 					b3 * GetPoint(j + 3, cpts)[2];
 
 				// specify the point
-				//	glVertex3f(x, y, z);
 				vertexBuffer[j*LOD + i].position = pos;
 				vertexBuffer[j*LOD + i].normal = pos;
 				vertexBuffer[j*LOD + i].color = color;
@@ -191,12 +191,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 						dist = pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2) + pow(lastZ - pos.z, 2), 0.5);
 						slope = (lastY - pos.y) / pow(pow(lastX - pos.x, 2) + pow(lastZ - pos.z, 2), 0.5);
 					}
-
-					//		if (slope > -0.001 && slope < .001)
-					//			angle = 0;
-					//		else
-					//			angle = acos((lastX - pos.x) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5));
-
+					
 					if (slope < 0)
 						velocity = acceleration * slope;
 					else if (slope > 0)
@@ -215,30 +210,47 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 					}
 
 					actualSpeed += velocity * 0.77; // assume ground resistance = 0.77
-					if (actualSpeed < 5)
+					if (actualSpeed < 3)
 						actualSpeed = 5;
-					else if (actualSpeed > 15)
+					else if (actualSpeed > 20)
 						actualSpeed = 15;
 					totalTime += (dist / actualSpeed);//*/
 
 					//if not using time = totalTime, using time = (j*LOD + i) * 0.01
 					a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
-					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + "\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n\n";
+					aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + 
+						"\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z);
 					
+					if (abs(abs(lastX - pos.x) - abs(lastZ - pos.z)) < 0.1 || lastX == 0 && lastY == 0 && lastX == 0){
+						hSlope = 0;
+						hSlope = 0;
+					}
+					else if (abs(lastX - pos.x) > abs(lastZ - pos.z)){
+						//if (lastX - pos.x < 0)
+						hSlope = (lastX - pos.x) / pow(pow(lastZ - pos.z, 2) + pow(lastY - pos.y, 2), 0.5);
+						hAngle = acos((lastX - pos.x) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
+						aKey += "\nrotation = " + to_string(0.0f) + " " + to_string(hSlope) + " " + to_string(hSlope) + " " + to_string(hAngle) + "\n";
+					}
+					else{
+						//if (lastZ - pos.z < 0)
+						hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
+						hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
+						aKey += "\nrotation = " + to_string(hSlope) + " " + to_string(hSlope) + " " + to_string(0.0f) + " " + to_string(hAngle) + "\n";
+					}
+						
 					const char* temp = aKey.c_str();
-					fputs (	temp,sceneF);
+					fputs(temp, sceneF);
 
-					if ((j*LOD + i) == 1760)
+					if ((j*LOD + i) == (j*LOD + i) - (3*LOD))
 						break;
-					
+
 					lastY = pos.y;
 					lastX = pos.x;
 					lastZ = pos.z;
 				}//*/
 			}
-			if ((j*LOD + i) == 1760)
+			if ((j*LOD + i) == (j*LOD + i) - (3 * LOD))
 				break;//*/
-
 		}
 		numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 
@@ -249,7 +261,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(92), LOD(20) {
 
 
 	if (!done && sceneF!=NULL){
-		a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 1.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
+		a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 5.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
 
 		const char* temp = a.c_str();
 		fputs (	temp,sceneF);
