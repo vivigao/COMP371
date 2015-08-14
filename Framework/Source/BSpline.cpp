@@ -535,7 +535,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 			if(!done){
 				key = new AnimationKey();
 				if (lastX == 0 && lastY == 0 && lastX == 0){
-					dist = 0.0001;
+					dist = 0.0001f;
 					slope = 0;
 				}
 				else{
@@ -545,24 +545,18 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					if (slope < 0)
 						velocity = acceleration * slope;
 					else if (slope > 0)
-						velocity = acceleration * slope * 0.88;// climbing hill also has resistance
+						velocity = acceleration * slope * 0.88f;// climbing hill also has resistance
 					else{
-						if (actualSpeed > 10){
-							velocity = -0.02;
-							if (velocity < 0)
-								velocity = 0;
-						}
-						else if (actualSpeed < 10){
-							velocity = 0.0123;
-							if (velocity > 0)
-								velocity = 0;
-						}
+						if (actualSpeed > 10)
+							velocity = -0.01;
+						else if (actualSpeed < 10)
+							velocity = 0.006f;
 					}
 				}
 				
 				actualSpeed += velocity * 0.77; // assume ground resistance = 0.77
 				if (actualSpeed < 3)
-					actualSpeed = 5;
+					actualSpeed = 3;
 				else if (actualSpeed > 23)
 					actualSpeed = 23;
 
@@ -618,8 +612,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);//*/
 
-	if (!done){
-		if(sceneF!=NULL){
+	if (!done && sceneF != NULL){
 			a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 5.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
 			const char* temp = a.c_str();
 			fputs (	temp,sceneF);
@@ -627,13 +620,9 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 			fclose (sceneF);
 		//	delete temp;
 			done = true;
-		}
 
 		if(pillarF != NULL)
-
-		//	delete temp;
 			fclose (pillarF);
-		
 	}//*/
 /*	else{
 		for (i = 0, j = 0; i < sizeof(vertexBuffer) - 1; i += 5, j += 2){

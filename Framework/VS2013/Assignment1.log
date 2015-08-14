@@ -1,4 +1,4 @@
-﻿Build started 2015-08-14 6:53:56 PM.
+﻿Build started 2015-08-14 7:13:05 PM.
      1>Project "C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\Assignment1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/FreeImage-3170/Source" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/" /Fd"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\BSpline.cpp
@@ -16,10 +16,10 @@
      1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(543): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(548): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(551): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(556): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(563): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(576): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(583): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(553): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(557): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(570): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mike\desktop\u4\comp371\project\framework\source\bspline.cpp(577): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\mike\Desktop\u4\comp371\assignment\Assignment3\Framework\ThirdParty\glutcu\lib /LIBPATH:"../ThirdParty/FreeImage-3170/lib/win32" /LIBPATH:"../ThirdParty/glew-1.10.0/lib/Release/Win32" /LIBPATH:"../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110" FreeImage.lib opengl32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Bin/Assignment1-Debug.lib" /MACHINE:X86 C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/Animation.obj
          C:\Users\mike\Desktop\u4\comp371\project\Framework\VS2013\/../Build/Debug/Billboard.obj
@@ -43,4 +43,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.24
+Time Elapsed 00:00:02.07
