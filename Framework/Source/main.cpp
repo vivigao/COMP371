@@ -27,6 +27,7 @@ int main(int argc, char*argv[]){
 		//world.LoadScene("Scenes/AnimatedSceneWithParticles.scene");
 		world.LoadScene("Scenes/project.scene");
 		world.LoadScene("Scenes/spline.scene");
+		//world.LoadScene("Scenes/pillarM.scene");
 		//		world.LoadScene("Scenes/AnimatedScene.scene");
 		//		world.LoadScene("Scenes/StaticScene.scene");
 		//		world.LoadScene("Scenes/CoordinateSystem.scene");
@@ -34,6 +35,7 @@ int main(int argc, char*argv[]){
 		//world.LoadScene("../Assets/Scenes/AnimatedSceneWithParticles.scene");
 		world.LoadScene("../Assets/Scenes/project.scene");
 		world.LoadScene("../Assets/Scenes/spline.scene");
+		//world.LoadScene("../Assets/Scenes/pillarM.scene");
 		//		world.LoadScene("../Assets/Scenes/AnimatedScene.scene");
 		//		world.LoadScene("../Assets/Scenes/StaticScene.scene");
 		//		world.LoadScene("../Assets/Scenes/CoordinateSystem.scene");

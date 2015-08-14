@@ -12,7 +12,7 @@ public:
 	virtual void Draw();
 	virtual void Update(float dt);
 
-	float* GetPoint(const int& i, float(&cpts)[92][3]);
+	float* GetPoint(const int& i, float(&cpts)[1392][3]);
 	static void setFunctions();
 
 	vector<vec3> Spline;

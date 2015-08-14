@@ -24,6 +24,7 @@ public:
 	void Load(ci_istringstream& iss);
 	virtual glm::mat4 GetWorldMatrix() const;
 
+	void SetName(std::string &name);
 	void SetPosition(glm::vec3 position);
 	void SetScaling(glm::vec3 scaling);
 	void SetRotation(glm::vec3 axis, float angleDegrees);
