@@ -14,6 +14,7 @@
 
 #include "BSpline.h"
 #include "CubeModel.h"
+#include "WaterModel.h"
 #include "SphereModel.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -204,11 +205,11 @@ void World::LoadScene(const char * scene_path){
 				cube->Load(iss);
 				mModel.push_back(cube);
 			}
-            else if( result == "sphere" ){
-                SphereModel* sphere = new SphereModel();
-                sphere->Load(iss);
-                mModel.push_back(sphere);
-            }
+      else if( result == "sphere" ){
+        SphereModel* sphere = new SphereModel();
+        sphere->Load(iss);
+        mModel.push_back(sphere);
+      }
 /*			else if ( result == "animationkey" ){
 				AnimationKey* key = new AnimationKey();
 				key->Load(iss);
@@ -223,7 +224,12 @@ void World::LoadScene(const char * scene_path){
 				BSpline* spline = new BSpline();
 				spline->Load(iss);
 				mBSpline.push_back(spline);
-			}//*/
+			}
+      else if (result == "water"){
+        WaterModel* water = new WaterModel();
+        water->Load(iss);
+        mModel.push_back(water);
+      }
 			else if ( result.empty() == false && result[0] == '#'){
 				// this is a comment line
 			}

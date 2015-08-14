@@ -32,6 +32,7 @@
 		03FE4ED41B2FA1210020F06F /* Scenes in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FE4ED21B2FA1010020F06F /* Scenes */; };
 		03FE4ED51B2FA1210020F06F /* Shaders in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FE4ED31B2FA1010020F06F /* Shaders */; };
 		03FE4ED81B2FA9830020F06F /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE4ED61B2FA9830020F06F /* Animation.cpp */; };
+		B531FD581B7E626B00745FA0 /* WaterModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B531FD561B7E626B00745FA0 /* WaterModel.cpp */; };
 		B5CA33451B79711200AE6229 /* BSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CA33401B79711200AE6229 /* BSpline.cpp */; };
 		B5CA33461B79711200AE6229 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CA33431B79711200AE6229 /* World.cpp */; };
 /* End PBXBuildFile section */
@@ -94,6 +95,8 @@
 		03FE4ED31B2FA1010020F06F /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../Assets/Shaders; sourceTree = "<group>"; };
 		03FE4ED61B2FA9830020F06F /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		03FE4ED71B2FA9830020F06F /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		B531FD561B7E626B00745FA0 /* WaterModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterModel.cpp; sourceTree = "<group>"; };
+		B531FD571B7E626B00745FA0 /* WaterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterModel.h; sourceTree = "<group>"; };
 		B5CA333E1B79709B00AE6229 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		B5CA33401B79711200AE6229 /* BSpline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSpline.cpp; sourceTree = "<group>"; };
 		B5CA33411B79711200AE6229 /* BSpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSpline.h; sourceTree = "<group>"; };
@@ -220,12 +223,14 @@
 		B58A8EFD1B7A075C00C24546 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B5CA33401B79711200AE6229 /* BSpline.cpp */,
-				B5CA33411B79711200AE6229 /* BSpline.h */,
-				03FE4E971B2F8D990020F06F /* CubeModel.cpp */,
-				03FE4E981B2F8D990020F06F /* CubeModel.h */,
 				03FE4E9E1B2F8D990020F06F /* Model.cpp */,
 				03FE4E9F1B2F8D990020F06F /* Model.h */,
+				B5CA33401B79711200AE6229 /* BSpline.cpp */,
+				B5CA33411B79711200AE6229 /* BSpline.h */,
+				B531FD561B7E626B00745FA0 /* WaterModel.cpp */,
+				B531FD571B7E626B00745FA0 /* WaterModel.h */,
+				03FE4E971B2F8D990020F06F /* CubeModel.cpp */,
+				03FE4E981B2F8D990020F06F /* CubeModel.h */,
 				03FE4EA51B2F8D990020F06F /* SphereModel.cpp */,
 				03FE4EA61B2F8D990020F06F /* SphereModel.h */,
 			);
@@ -310,6 +315,7 @@
 				03FE4EAC1B2F8D990020F06F /* CubeModel.cpp in Sources */,
 				B5CA33451B79711200AE6229 /* BSpline.cpp in Sources */,
 				039EC6881B4DAFD90061B0B7 /* ParticleEmitter.cpp in Sources */,
+				B531FD581B7E626B00745FA0 /* WaterModel.cpp in Sources */,
 				03FE4EAE1B2F8D990020F06F /* FirstPersonCamera.cpp in Sources */,
 				039EC6891B4DAFD90061B0B7 /* ParticleSystem.cpp in Sources */,
 				039EC68C1B4DAFEA0061B0B7 /* TextureLoader.cpp in Sources */,

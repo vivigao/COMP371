@@ -12,6 +12,11 @@ position = 10.0 2.0 0.0
 animation = "CycleAnim"
 particleSystem = "Fire"
 
+[Water]
+name = "Water"
+scaling = 1.0 1.0 1.0
+position = 0.0 -3.0 0.0
+
 [BSpline]
 name		= "BSpline1"
 scaling		= 1.0 1.0 1.0
