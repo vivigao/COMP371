@@ -39,12 +39,12 @@ public:
 	glm::mat4 GetAnimationWorldMatrix() const;
 	void Load(ci_istringstream& iss);
 	ci_string GetName() const;
-
+//	void SetMName(string& name) { mName = name.c_str(); }
+	ci_string mName; // The model name is mainly for debugging
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
 
 private:
-	ci_string mName; // The model name is mainly for debugging
 	float mCurrentTime;
     float mDuration;
 
