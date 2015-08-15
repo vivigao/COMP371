@@ -12,14 +12,6 @@
 #include "TextureLoader.h"
 #include "BSpline.h"
 
-#if defined(PLATFORM_OSX)
-  #include <GLUT/glut.h>
-#else
-  #include <GL/glut.h>
-#endif
-//#include <OpenGL/gl.h>
-
-
 int main(int argc, char*argv[]){
 	EventManager::Initialize();
 	Renderer::Initialize();
@@ -28,15 +20,20 @@ int main(int argc, char*argv[]){
 	if (argc > 1)
 		world.LoadScene(argv[1]);
 	else{
+		// TODO - You can alternate between different scenes for testing different things
+		// Static Scene contains no animation
+		// Animated Scene does
 #if defined(PLATFORM_OSX)	
-		world.LoadScene("Scenes/project.scene");
 		//world.LoadScene("Scenes/AnimatedSceneWithParticles.scene");
+		world.LoadScene("Scenes/project.scene");
+		world.LoadScene("Scenes/spline.scene");
 		//		world.LoadScene("Scenes/AnimatedScene.scene");
 		//		world.LoadScene("Scenes/StaticScene.scene");
 		//		world.LoadScene("Scenes/CoordinateSystem.scene");
 #else
-		world.LoadScene("../Assets/Scenes/project.scene");
 		//world.LoadScene("../Assets/Scenes/AnimatedSceneWithParticles.scene");
+		world.LoadScene("../Assets/Scenes/project.scene");
+		world.LoadScene("../Assets/Scenes/spline.scene");
 		//		world.LoadScene("../Assets/Scenes/AnimatedScene.scene");
 		//		world.LoadScene("../Assets/Scenes/StaticScene.scene");
 		//		world.LoadScene("../Assets/Scenes/CoordinateSystem.scene");

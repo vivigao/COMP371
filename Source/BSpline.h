@@ -12,9 +12,10 @@ public:
 	virtual void Draw();
 	virtual void Update(float dt);
 
-	float* GetPoint(const int& i, float(&cpts)[92][3]);
+	float* GetPoint(const int& i, float(&cpts)[1392][3]);
 	static void setFunctions();
 
+	vector<vec3> Spline;
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
 
@@ -24,8 +25,6 @@ private:
 		glm::vec3 normal;
 		glm::vec3 color;
 	};
-
-	static vector<vec3> Spline1, Spline2;
 
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;

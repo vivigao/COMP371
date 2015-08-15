@@ -18,6 +18,6 @@ void main()
     color = v_color * textureColor;
 
     // Alpha test - Discard Fragment below treshold
-    if(color.a <= 0.02f)
+    if(color.a <= 0.02)
         discard;
 }
