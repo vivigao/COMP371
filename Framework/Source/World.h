@@ -34,6 +34,7 @@ public:
     const Camera* GetCurrentCamera() const;
     void AddBillboard(Billboard* b);
 	void AddAnimationKey(AnimationKey* ak);
+	void AddAnimation(Animation* a);
     void RemoveBillboard(Billboard* b);
     void AddParticleSystem(ParticleSystem* particleSystem);
     void RemoveParticleSystem(ParticleSystem* particleSystem);

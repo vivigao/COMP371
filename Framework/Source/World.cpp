@@ -266,7 +266,9 @@ void World::RemoveParticleSystem(ParticleSystem* particleSystem){
     mParticleSystemList.erase(it);
 }
 
-void World::AddAnimationKey(AnimationKey* ak){	mAnimationKey.push_back(ak);}
+void World::AddAnimationKey(AnimationKey* ak){	mAnimationKey.push_back(ak); }
+
+void World::AddAnimation(Animation* a){ mAnimation.push_back(a); }
 
 
 // TODO - You can un-comment out these 2 temporary billboards and particle system

@@ -42,7 +42,6 @@ Animation::~Animation(){}
 void Animation::CreateVertexBuffer(){
     // This is just to display lines between the animation keys
 	Vertex v;
-	int hSlope;
     for (int i=0; i<mKey.size(); ++i){
         v.position = mKey[i].mPosition;
 

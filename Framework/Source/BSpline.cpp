@@ -491,13 +491,17 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 	vec3 pos;
 	int j, i;
 	AnimationKey* key;
+	Animation* ani = new Animation();
 
 	FILE * sceneF, * pillarF;
 	if(!done){
 		sceneF = fopen("../Assets/Scenes/spline.scene","w+");
 		pillarF = fopen("../Assets/Scenes/pillarM.scene","w+");
 	}
-	string a = "[Animation]\nname = \"splineAnime\"\n", aKey = "", aKeyRo, pModel = "";//*/
+	string nm = "\"splineAnime\"", 
+		a = "", //"[Animation]\nname = \"splineAnime\"\n"
+		aKey = "", aKeyRo, pModel = "";//*/
+	ani->mName = nm.c_str();
 
 	for (j = 0; j < noOfPoints-4; j++){
 		// for each section of curve, draw LOD number of divisions  
@@ -545,7 +549,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					if (slope < 0)
 						velocity = acceleration * slope;
 					else if (slope > 0)
-						velocity = acceleration * slope * 0.88f;// climbing hill also has resistance
+						velocity = acceleration * slope * 0.55f;// climbing hill also has resistance
 					else{
 						if (actualSpeed > 10)
 							velocity = -0.01;
@@ -570,24 +574,29 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					hSlope = (lastX - pos.x) / pow(pow(lastZ - pos.z, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastX - pos.x) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
 //					aKeyRo = "rotation = " + to_string(1.0f) + " " + to_string(0.0f) + " " + to_string(0.0f) + " " + to_string(abs(hSlope)*hAngle) + "\n";
-					key->SetRotation( vec3(0.0, 0.0, 1.0), abs(hSlope)*hAngle);
+				//	if (hSlope < 0)
+
+					key->SetRotation( vec3(0.0, 0.0, 1.0), hSlope*hAngle);
 				}
 				else if (abs(lastZ - pos.z) > abs(lastX - pos.x)){
 					//if (lastZ - pos.z < 0)
 					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
 //					aKeyRo = "rotation = " + to_string(0.0f) + " " + to_string(0.0f) + " " + to_string(1.0f) + " " + to_string(abs(hSlope)*hAngle) + "\n";
-					key->SetRotation( vec3(0.0, 0.0, 1.0), abs(hSlope)*hAngle);
+					
+					key->SetRotation( vec3(0.0, 0.0, 1.0), hSlope*hAngle);
 				}
 				else
 					aKeyRo = "";
 
 				//if not using time = totalTime, using time = (j*LOD + i) * 0.01
-				a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
+		//		a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
 				
+
 				key->SetName("\"lineK" + to_string((j*LOD + i)) + "\"");
 				key->SetPosition( pos );
 				World::GetInstance()->AddAnimationKey(key);
+				ani->AddKey(key, totalTime);
 
 /*				aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + 
 					"\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n" + aKeyRo;
@@ -606,6 +615,9 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 			}//*/
 		}
 	}
+	ani->CreateVertexBuffer();
+	World::GetInstance()->AddAnimation(ani);
+
 	numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 	glGenVertexArrays(1, &mVertexArrayID);
 	glGenBuffers(1, &mVertexBufferID);
