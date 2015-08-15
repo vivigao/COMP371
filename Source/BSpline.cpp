@@ -3,6 +3,8 @@
 #include "BSpline.h"
 #include "Renderer.h"
 #include "SphereModel.h"
+#include "World.h"
+#include "Animation.h"
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -20,7 +22,7 @@ rotation	= 0.0 0.0 1.0 90*/
 
 bool done = false;
 float acceleration = 9.8, velocity = 0, slope, actualSpeed = 10, hSlope, hAngle,
-		lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist;
+		lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist, temp1, temp2;
 /*float cpts[70][3] = {
 {-31.642876, 40.071865, -35.836735},
 {6.044746, 4.399780, -27.198311},
@@ -483,16 +485,23 @@ float* BSpline::GetPoint(const int& i, float (&cpts)[1392][3]){
 
 BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 
-	const int* size = new int(1392*4);
+//	const int* size = new int(1392*4);
 	Vertex vertexBuffer[5568]; //vBsize
 	float t, it, b0, b1, b2, b3;
 	vec3 pos;
 	int j, i;
+	AnimationKey* key;
+	Animation* ani = new Animation();
 
-	FILE * sceneF;
-	if(!done)
-		sceneF = fopen ("../Assets/Scenes/spline.scene","w+");
-	string a = "\n[Animation]\nname = \"splineAnime\"\n", aKey;//*/
+	FILE * sceneF, * pillarF;
+	if(!done){
+		sceneF = fopen("../Assets/Scenes/spline.scene","w+");
+		pillarF = fopen("../Assets/Scenes/pillarM.scene","w+");
+	}
+	string nm = "\"splineAnime\"", 
+		a = "", //"[Animation]\nname = \"splineAnime\"\n"
+		aKey = "", aKeyRo, pModel = "";//*/
+	ani->mName = nm.c_str();
 
 	for (j = 0; j < noOfPoints-4; j++){
 		// for each section of curve, draw LOD number of divisions  
@@ -522,14 +531,15 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 				b3 * GetPoint(j + 3, map)[2]; // pos.y
 
 			// specify the point
-			vertexBuffer[j*LOD + i].position = pos;
+/*			vertexBuffer[j*LOD + i].position = pos;
 			vertexBuffer[j*LOD + i].normal = pos;
 			vertexBuffer[j*LOD + i].color = color;
-		//	SplineV.push_back(pos);
+		//	SplineV.push_back(pos);//*/
 
 			if(!done){
+				key = new AnimationKey();
 				if (lastX == 0 && lastY == 0 && lastX == 0){
-					dist = 0.0001;
+					dist = 0.0001f;
 					slope = 0;
 				}
 				else{
@@ -539,71 +549,78 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					if (slope < 0)
 						velocity = acceleration * slope;
 					else if (slope > 0)
-						velocity = acceleration * slope;
+						velocity = acceleration * slope * 0.55f;// climbing hill also has resistance
 					else{
-						if (actualSpeed > 10){
-							velocity = -0.02;
-							if (velocity < 0)
-								velocity = 0;
-						}
-						else if (actualSpeed < 10){
-							velocity = 0.0123;
-							if (velocity > 0)
-								velocity = 0;
-						}
+						if (actualSpeed > 10)
+							velocity = -0.01;
+						else if (actualSpeed < 10)
+							velocity = 0.006f;
 					}
 				}
 				
 				actualSpeed += velocity * 0.77; // assume ground resistance = 0.77
 				if (actualSpeed < 3)
-					actualSpeed = 5;
+					actualSpeed = 3;
 				else if (actualSpeed > 23)
 					actualSpeed = 23;
 
 				totalTime += (dist / actualSpeed);//*/
 
-				//if not using time = totalTime, using time = (j*LOD + i) * 0.01
-				a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
-				aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + 
-					"\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n";
-				
-				if (abs(abs(lastX - pos.x) - abs(lastZ - pos.z)) < 0.1 || lastX == 0 && lastY == 0 && lastX == 0){
-					//nothing happen
+				if (abs(abs(lastX - pos.x) - abs(lastZ - pos.z)) < 0.01 || lastX == 0 && lastY == 0 && lastX == 0){
+					aKeyRo = "";//nothing happen
 				}
-				else if (abs(lastX - pos.x) > abs(lastZ - pos.z)){
+/*				else if (abs(lastX - pos.x) > abs(lastZ - pos.z)){
 					//if (lastX - pos.x < 0)
 					hSlope = (lastX - pos.x) / pow(pow(lastZ - pos.z, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastX - pos.x) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
-					aKey += "rotation = " + to_string(1.0f) + " " + to_string(0.0f) + " " + to_string(0.0f) + " " + to_string(abs(hSlope)*hAngle) + "\n";
+
+					key->SetRotation( vec3(1.0, 0.0, 0.0), hSlope*hAngle);
 				}
 				else if (abs(lastZ - pos.z) > abs(lastX - pos.x)){
 					//if (lastZ - pos.z < 0)
 					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
-					aKey += "rotation = " + to_string(0.0f) + " " + to_string(0.0f) + " " + to_string(1.0f) + " " + to_string(abs(hSlope)*hAngle) + "\n";
-				}
 					
-				const char* temp = aKey.c_str();
-				fputs(temp, sceneF);
+					key->SetRotation( vec3(0.0, 0.0, 1.0), hSlope*hAngle);
+				}//*/
+				else{
+					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
+					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
+
+					key->SetRotation(vec3(0.0, 0.0, 1.0), hSlope*hAngle);
+				} 
+
+				key->SetName("\"lineK" + to_string((j*LOD + i)) + "\"");
+				key->SetPosition( pos );
+				World::GetInstance()->AddAnimationKey(key);
+				ani->AddKey(key, totalTime);
+
 				lastY = pos.y;
 				lastX = pos.x;
 				lastZ = pos.z;
 			}//*/
 		}
 	}
+	ani->CreateVertexBuffer();
+	World::GetInstance()->AddAnimation(ani);
+
 	numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 	glGenVertexArrays(1, &mVertexArrayID);
 	glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);//*/
 
-	if (!done && sceneF!=NULL){
-		a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 5.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
-		const char* temp = a.c_str();
-		fputs (	temp,sceneF);
+	if (!done && sceneF != NULL){
+			a += "[Cube]\nname  = \"Cube\"\nscaling = 1.0 1.0 5.0\nposition = 0.0 1.0 0.0\nrotation = 0.0 0.0 1.0 180\nanimation = \"splineAnime\"";
+			const char* temp = a.c_str();
+			fputs (	temp,sceneF);
 
-		fclose (sceneF);
-		done = true;
+			fclose (sceneF);
+		//	delete temp;
+			done = true;
+
+		if(pillarF != NULL)
+			fclose (pillarF);
 	}//*/
 /*	else{
 		for (i = 0, j = 0; i < sizeof(vertexBuffer) - 1; i += 5, j += 2){
@@ -644,7 +661,7 @@ BSpline::~BSpline(){
 	glDeleteBuffers(1, &mVertexBufferID);
 	glDeleteVertexArrays(1, &mVertexArrayID);
 
-	if( remove( "spline.scene" ) != 0 )
+	if (remove("spline.scene") != 0 && remove("pillarM.scene") != 0)
 		perror( "Error deleting file" );
 	else
 		puts( "File successfully deleted" );//*/
@@ -652,7 +669,7 @@ BSpline::~BSpline(){
 }
 
 void BSpline::Draw(){
-	// Draw the Vertex Buffer
+/*	// Draw the Vertex Buffer
 	// Note this draws a unit Cube
 	// The Model View Projection transforms are computed in the Vertex Shader
 	glBindVertexArray(mVertexArrayID);
@@ -701,7 +718,7 @@ void BSpline::Draw(){
 
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(0);//*/
 }
 
 void BSpline::Update(float dt){ Model::Update(dt); }

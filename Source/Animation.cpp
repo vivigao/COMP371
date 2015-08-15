@@ -5,6 +5,7 @@
 //
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 
+#include <math.h> 
 #include "Animation.h"
 #include "Renderer.h"
 #include "World.h"
@@ -40,11 +41,20 @@ Animation::~Animation(){}
 
 void Animation::CreateVertexBuffer(){
     // This is just to display lines between the animation keys
+	Vertex v;
     for (int i=0; i<mKey.size(); ++i){
-        Vertex v;
         v.position = mKey[i].mPosition;
+
+		v.position.x = v.position.x-0.5;
+        mVertexBuffer.push_back(v);
+		v.position.x = v.position.x+0.5;
         mVertexBuffer.push_back(v);
     }
+/*	for (int i=0; i<mKey.size(); ++i){
+        v.position = mKey[i].mPosition;
+		v.position.x = v.position.x+0.5;
+        mVertexBuffer.push_back(v);
+    }//*/
     
 	// Create a vertex array
 	glGenVertexArrays(1, &mVertexArrayID);
@@ -91,9 +101,9 @@ void Animation::Draw(){
 		);
     
 	// Draw the triangles !
-	glDrawArrays(GL_LINE_LOOP, 0, mVertexBuffer.size());
+	glDrawArrays(GL_LINES, 0, mVertexBuffer.size());
 
-	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(0);//*/
 }
 
 void Animation::Load(ci_istringstream& iss){
