@@ -34,11 +34,12 @@ public:
 	glm::vec3 GetRotationAxis() const	{ return mRotationAxis; }
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
     ci_string GetName()                 { return mName; }
+  ci_string mName; // The model name is mainly for debugging
+
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
 
-	ci_string mName; // The model name is mainly for debugging
 	glm::vec3 mPosition;
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;

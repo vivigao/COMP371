@@ -590,7 +590,8 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					key->SetRotation(vec3(0.0, 0.0, 1.0), hSlope*hAngle);
 				} 
 
-				key->SetName("\"lineK" + to_string((j*LOD + i)) + "\"");
+        string temp = "\"lineK" + to_string((j*LOD + i)) + "\"";
+				key->mName = temp.c_str();
 				key->SetPosition( pos );
 				World::GetInstance()->AddAnimationKey(key);
 				ani->AddKey(key, totalTime);
