@@ -22,7 +22,7 @@ rotation	= 0.0 0.0 1.0 90*/
 
 bool done = false;
 float acceleration = 9.8, velocity = 0, slope, actualSpeed = 10, hSlope, hAngle,
-		lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist;
+		lastX = 0, lastY = 0, lastZ = 0, totalTime = 0.0000001, dist, temp1, temp2;
 /*float cpts[70][3] = {
 {-31.642876, 40.071865, -35.836735},
 {6.044746, 4.399780, -27.198311},
@@ -566,49 +566,35 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 
 				totalTime += (dist / actualSpeed);//*/
 
-				if (abs(abs(lastX - pos.x) - abs(lastZ - pos.z)) < 0.1 || lastX == 0 && lastY == 0 && lastX == 0){
+				if (abs(abs(lastX - pos.x) - abs(lastZ - pos.z)) < 0.01 || lastX == 0 && lastY == 0 && lastX == 0){
 					aKeyRo = "";//nothing happen
 				}
-				else if (abs(lastX - pos.x) > abs(lastZ - pos.z)){
+/*				else if (abs(lastX - pos.x) > abs(lastZ - pos.z)){
 					//if (lastX - pos.x < 0)
 					hSlope = (lastX - pos.x) / pow(pow(lastZ - pos.z, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastX - pos.x) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
-//					aKeyRo = "rotation = " + to_string(1.0f) + " " + to_string(0.0f) + " " + to_string(0.0f) + " " + to_string(abs(hSlope)*hAngle) + "\n";
-				//	if (hSlope < 0)
 
-					key->SetRotation( vec3(0.0, 0.0, 1.0), hSlope*hAngle);
+					key->SetRotation( vec3(1.0, 0.0, 0.0), hSlope*hAngle);
 				}
 				else if (abs(lastZ - pos.z) > abs(lastX - pos.x)){
 					//if (lastZ - pos.z < 0)
 					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
-//					aKeyRo = "rotation = " + to_string(0.0f) + " " + to_string(0.0f) + " " + to_string(1.0f) + " " + to_string(abs(hSlope)*hAngle) + "\n";
 					
 					key->SetRotation( vec3(0.0, 0.0, 1.0), hSlope*hAngle);
-				}
-				else
-					aKeyRo = "";
+				}//*/
+				else{
+					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
+					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
 
-				//if not using time = totalTime, using time = (j*LOD + i) * 0.01
-		//		a += "key = \"lineK" + to_string((j*LOD + i)) + "\"\ttime = " + to_string(totalTime) + "f\n";
-				
+					key->SetRotation(vec3(0.0, 0.0, 1.0), hSlope*hAngle);
+				} 
 
 				key->SetName("\"lineK" + to_string((j*LOD + i)) + "\"");
 				key->SetPosition( pos );
 				World::GetInstance()->AddAnimationKey(key);
 				ani->AddKey(key, totalTime);
 
-/*				aKey = "[AnimationKey]\nname = \"lineK" + to_string((j*LOD + i)) + 
-					"\"\nposition = " + to_string(pos.x) + " " + to_string(pos.y) + " " + to_string(pos.z) + "\n" + aKeyRo;
-				const char* temp = aKey.c_str();
-				fputs(temp, sceneF);//*/
-			//	delete temp;
-				
-/*				if( (j*LOD + i)%4 == 0){
-					pModel += "[Cube]\nname = \"Cube\"\nscaling = 0.3 "+to_string(pos.y)+" 0.3\nposition = " + to_string(pos.x) + " 0.0 " + to_string(pos.z) + "\n";
-					const char* temp = pModel.c_str();
-					fputs(temp, pillarF);
-				}//*/
 				lastY = pos.y;
 				lastX = pos.x;
 				lastZ = pos.z;
@@ -675,7 +661,7 @@ BSpline::~BSpline(){
 	glDeleteBuffers(1, &mVertexBufferID);
 	glDeleteVertexArrays(1, &mVertexArrayID);
 
-	if( remove( "spline.scene" ) != 0 )
+	if (remove("spline.scene") != 0 && remove("pillarM.scene") != 0)
 		perror( "Error deleting file" );
 	else
 		puts( "File successfully deleted" );//*/
