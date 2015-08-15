@@ -4,26 +4,24 @@
 
 - Yihong(Mike) Hu
 - Dan Zhang
-- Tony(Junfei) Gu
 - Shang Gao
-- Mather Warsame
 - Emma Sab
 
 ## Todo
 
 #### Landscape/Background
 - [ ] Implement the landscape in OBJ files
-  → __Tony__
+  → 
 - [ ] Add texture to the landscape and background
-  → __Tony__
+  → 
 - [ ] Add skybox in the background
-  → __Tony__
+  → 
 - [ ] Put colors to the landscape and backrgound
-  → __Tony__
+  → 
 
 #### Models
 - [ ] Build models
-  → __Tony__, __Mike__
+  → __Mike__
 
 #### Camera
 - [ ] Implement first person camera
@@ -33,7 +31,7 @@
 
 #### Spline
 - [ ] Spline for the track
-  → __Dan__, __Mather__, __Shang__
+  → __Dan__, __Shang__
 
 #### Animation
 - [ ] Define animations of the coaster
@@ -41,9 +39,9 @@
 
 #### Shading/lighting
 - [ ] Import lighting framework from Assignment 3
-  → __Dan__, __Mather__, __Mike__, __Tony__
+  → __Dan__, __Mike__
 - [ ] Customize the lighting
-  → __Dan__, __Mather__, __Mike__, __Tony__
+  → __Dan__, __Mike__
 
 #### Particles/Billboard
 - [ ] Implement water
