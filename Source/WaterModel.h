@@ -12,7 +12,7 @@
 class WaterModel : public Model
 {
 public:
-	WaterModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	WaterModel(int textureID);
 	virtual ~WaterModel();
 
 	virtual void Update(float dt);
@@ -31,10 +31,24 @@ private:
 	};
   
   std::vector<unsigned short> mIndexBuffer;
+  std::vector<Vertex> vertexBuffer;
   
-  unsigned int mRows = 5;
-  unsigned int mColumns = 5;
-
+  int mTextureID;
+  
+  float timer;
+  
+  unsigned int mRows = 51;
+  unsigned int mColumns = 51;
+  
+  float waveTime = 3,
+  waveWidth = 1,
+  waveHeight = 0.8,
+  waveFreq = 0.03;
+  
+  int waveTimeLocation,
+  waveWidthLocation,
+  waveHeightLocation;
+  
   unsigned int mElementBuffer;
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;

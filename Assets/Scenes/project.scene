@@ -14,7 +14,7 @@ particleSystem = "Fire"
 
 [Water]
 name = "Water"
-scaling = 1.0 1.0 1.0
+scaling = 0.1 0.1 0.1
 position = 0.0 -3.0 0.0
 
 [BSpline]

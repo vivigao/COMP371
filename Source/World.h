@@ -16,6 +16,7 @@ class Animation;
 class AnimationKey;
 class ParticleSystem;
 class BSpline;
+class WaterModel;
 
 class World{
 public:
@@ -41,6 +42,7 @@ private:
     static World* instance;
     
 	std::vector<Model*> mModel;
+  WaterModel* mWater;
     std::vector<Animation*> mAnimation;
     std::vector<AnimationKey*> mAnimationKey;
 	std::vector<Camera*> mCamera;

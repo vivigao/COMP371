@@ -39,17 +39,8 @@ World::World(){
 	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCurrentCamera = 0;
-    
-/*    // TODO: You can play with different textures by changing the billboardTest.bmp to another texture
-#if defined(PLATFORM_OSX)
-//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
-    int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
-#else
-	//   int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
-    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
-#endif
-    assert(billboardTextureID != 0);
-    mpBillboardList = new BillboardList(2048, billboardTextureID);//*/
+  
+//    mpBillboardList = new BillboardList(2048, billboardTextureID);//*/
 
 
 //	mBSpline.push_back(new BSpline( vec3(1.0, 1.0, 1.0) ) );
@@ -68,6 +59,8 @@ World::~World(){
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
 		delete *it;
 	mAnimationKey.clear();//*/
+  
+  delete mWater;
 
 	// Camera
 	for (vector<Camera*>::iterator it = mCamera.begin(); it < mCamera.end(); ++it)
@@ -120,6 +113,7 @@ void World::Update(float dt){
         (*it)->Update(dt);
     mpBillboardList->Update(dt);//*/
 
+  mWater->Update(dt);
 
 	// Update Spline
 	for (vector<BSpline*>::iterator it = mBSpline.begin(); it != mBSpline.end(); ++it)
@@ -170,6 +164,7 @@ void World::Draw(){
     // Draw Billboards
 //    mpBillboardList->Draw();
 
+  mWater->Draw();
 
 	//TODO Draw Spline
 	for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
@@ -182,6 +177,17 @@ void World::Draw(){
 }
 
 void World::LoadScene(const char * scene_path){
+  //    TODO: You can play with different textures by changing the billboardTest.bmp to another texture
+#if defined(PLATFORM_OSX)
+  int waterTextureID = TextureLoader::LoadTexture("Textures/Water.bmp");
+  //    int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
+#else
+  int waterTextureID = TextureLoader::LoadTexture("../Assets/Textures/Water.bmp");
+  //    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
+#endif
+  
+  assert(waterTextureID != 0);
+  
 	// Using case-insensitive strings and streams for easier parsing
 	ci_ifstream input;
 	input.open(scene_path, ios::in);
@@ -226,9 +232,8 @@ void World::LoadScene(const char * scene_path){
 				mBSpline.push_back(spline);
 			}
       else if (result == "water"){
-        WaterModel* water = new WaterModel();
-        water->Load(iss);
-        mModel.push_back(water);
+        mWater = new WaterModel(waterTextureID);
+        mWater->Load(iss);
       }
 			else if ( result.empty() == false && result[0] == '#'){
 				// this is a comment line
