@@ -33,6 +33,7 @@
 		03FE4ED41B2FA1210020F06F /* Scenes in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FE4ED21B2FA1010020F06F /* Scenes */; };
 		03FE4ED51B2FA1210020F06F /* Shaders in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FE4ED31B2FA1010020F06F /* Shaders */; };
 		03FE4ED81B2FA9830020F06F /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE4ED61B2FA9830020F06F /* Animation.cpp */; };
+		B5B085781B7FF650000885CD /* BSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5B085761B7FF650000885CD /* BSpline.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +96,8 @@
 		03FE4ED31B2FA1010020F06F /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../Assets/Shaders; sourceTree = "<group>"; };
 		03FE4ED61B2FA9830020F06F /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		03FE4ED71B2FA9830020F06F /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		B5B085761B7FF650000885CD /* BSpline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSpline.cpp; sourceTree = "<group>"; };
+		B5B085771B7FF650000885CD /* BSpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSpline.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 		038B785E1A6EB3F500111E36 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B5B085761B7FF650000885CD /* BSpline.cpp */,
+				B5B085771B7FF650000885CD /* BSpline.h */,
 				03FE4ED61B2FA9830020F06F /* Animation.cpp */,
 				03FE4ED71B2FA9830020F06F /* Animation.h */,
 				039EC67E1B4DAFBD0061B0B7 /* Billboard.cpp */,
@@ -260,6 +265,7 @@
 				03FE4EB31B2F8D990020F06F /* SphereModel.cpp in Sources */,
 				039EC6871B4DAFD90061B0B7 /* ParticleDescriptor.cpp in Sources */,
 				03FE4EAC1B2F8D990020F06F /* CubeModel.cpp in Sources */,
+				B5B085781B7FF650000885CD /* BSpline.cpp in Sources */,
 				039EC6881B4DAFD90061B0B7 /* ParticleEmitter.cpp in Sources */,
 				03FE4EAE1B2F8D990020F06F /* FirstPersonCamera.cpp in Sources */,
 				039EC6891B4DAFD90061B0B7 /* ParticleSystem.cpp in Sources */,
