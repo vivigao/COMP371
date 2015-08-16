@@ -29,10 +29,19 @@
 using namespace std;
 using namespace glm;
 
+#if defined(PLATFORM_OSX)
+  std::string objPathPrefix = "Objects/";
+  std::string texturePathPrefix = "Textures/";
+#else
+  std::string objPathPrefix = "../Assets/Objects/";
+  std::string texturePathPrefix = "../Assets/Textures/";
+#endif
+
 World* World::instance;
 
-World::World(){
-    instance = this;
+World::World()
+{
+  instance = this;
 
 	// Setup Camera
 	mCamera.push_back(new FirstPersonCamera(vec3(3.0f, 1.0f, 5.0f)));
@@ -40,53 +49,54 @@ World::World(){
 	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCurrentCamera = 0;
     
-/*    // TODO: You can play with different textures by changing the billboardTest.bmp to another texture
-#if defined(PLATFORM_OSX)
-//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
-    int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
-#else
-	//   int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
-    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
-#endif
-    assert(billboardTextureID != 0);
-    mpBillboardList = new BillboardList(2048, billboardTextureID);//*/
-
+//  string textureFile = "BillboardTest.bmp";
+//  string textureFile = "Particle.png";
+//  string path = texturePathPrefix + textureFile;
+//  int billboardTextureID = TextureLoader::LoadTexture(path.c_str());
+//
+//  assert(billboardTextureID != 0);
+//  mpBillboardList = new BillboardList(2048, billboardTextureID);
 
 //	mBSpline.push_back(new BSpline( vec3(1.0, 1.0, 1.0) ) );
 }
 
-World::~World(){
-	// Models
-	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
-		delete *it;
-	mModel.clear();
-
-	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
-		delete *it;
-	mAnimation.clear();
-
-	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
-		delete *it;
-	mAnimationKey.clear();//*/
-
-	// Camera
-	for (vector<Camera*>::iterator it = mCamera.begin(); it < mCamera.end(); ++it)
-		delete *it;
-	mCamera.clear();
-
-	// clear Spline
-	for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
-		delete *it;
-	mBSpline.clear();//*/
+World::~World()
+{
+  // Models
+  for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+    delete *it;
+  mModel.clear();
+  
+  for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
+    delete *it;
+  mAnimation.clear();
+  
+  for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
+    delete *it;
+  mAnimationKey.clear();
+  
+  // Camera
+  for (vector<Camera*>::iterator it = mCamera.begin(); it < mCamera.end(); ++it)
+    delete *it;
+  mCamera.clear();
+  
+  // clear Spline
+  for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
+    delete *it;
+  mBSpline.clear();
   
   delete mMap;
   
-	delete mpBillboardList;
+  delete mpBillboardList;
 }
 
-World* World::GetInstance(){    return instance;}
+World* World::GetInstance()
+{
+  return instance;
+}
 
-void World::Update(float dt){
+void World::Update(float dt)
+{
 	// User Inputs
 	// 0 1 2 to change the Camera
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1 ) == GLFW_PRESS)
@@ -127,7 +137,8 @@ void World::Update(float dt){
 		(*it)->Update(dt);//*/
 }
 
-void World::Draw(){
+void World::Draw()
+{
 	Renderer::BeginFrame();
 	
 	// Set shader to use
@@ -184,7 +195,8 @@ void World::Draw(){
 	Renderer::EndFrame();
 }
 
-void World::LoadScene(const char * scene_path){
+void World::LoadScene(const char * scene_path)
+{
 	// Using case-insensitive strings and streams for easier parsing
 	ci_ifstream input;
 	input.open(scene_path, ios::in);
@@ -224,7 +236,8 @@ void World::LoadScene(const char * scene_path){
 				mAnimation.push_back(anim);
 			}
       else if (result == "map") {
-        mMap = new ObjectModel("Objects/map.obj");
+        string path = objPathPrefix + "map.obj";
+        mMap = new ObjectModel(path.c_str());
         mMap->Load(iss);
       }
 			else if (result == "bspline"){
@@ -250,21 +263,26 @@ void World::LoadScene(const char * scene_path){
 		(*it)->CreateVertexBuffer();
 }
 
-Animation* World::FindAnimation(ci_string animName){
+Animation* World::FindAnimation(ci_string animName)
+{
     for(std::vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
         if((*it)->GetName() == animName)
             return *it;
     return nullptr;
 }
 
-AnimationKey* World::FindAnimationKey(ci_string keyName){
+AnimationKey* World::FindAnimationKey(ci_string keyName)
+{
     for(std::vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
         if((*it)->GetName() == keyName)
             return *it;
     return nullptr;
 }
 
-const Camera* World::GetCurrentCamera() const{     return mCamera[mCurrentCamera];}
+const Camera* World::GetCurrentCamera() const
+{
+  return mCamera[mCurrentCamera];
+}
 
 void World::AddBillboard(Billboard* b){    mpBillboardList->AddBillboard(b);}
 
