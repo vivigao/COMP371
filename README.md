@@ -7,11 +7,11 @@
 - Shang Gao
 - Emma Sab
 
-## Todo
+## Task list
 
 #### Landscape/Background
-- [ ] Implement the landscape in OBJ files
-  → 
+- [x] Implement the landscape in OBJ files
+  → __Emma__
 - [ ] Add texture to the landscape and background
   → 
 - [ ] Add skybox in the background
@@ -20,7 +20,7 @@
   → 
 
 #### Models
-- [ ] Build models
+- [x] Build models
   → __Mike__
 
 #### Camera
@@ -30,21 +30,21 @@
   → __Shang__
 
 #### Spline
-- [ ] Spline for the track
+- [x] Spline for the track
   → __Dan__, __Shang__
 
 #### Animation
-- [ ] Define animations of the coaster
-  → __Emma__, __Mike__
+- [x] Define animations of the coaster
+  → __Mike__
 
 #### Shading/lighting
-- [ ] Import lighting framework from Assignment 3
-  → __Dan__, __Mike__
+- [x] Import lighting framework from Assignment 3
+  → __Emma__
 - [ ] Customize the lighting
-  → __Dan__, __Mike__
+  → 
 
 #### Particles/Billboard
-- [ ] Implement water
-  → __Emma__, __Shang__
+- [x] Implement water
+  → __Emma__
 - [ ] Animation of particles
   → __Emma__, __Shang__
