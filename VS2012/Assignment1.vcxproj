@@ -98,6 +98,7 @@
   <ItemGroup>
     <ClCompile Include="..\Source\Animation.cpp" />
     <ClCompile Include="..\Source\Billboard.cpp" />
+    <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
     <ClCompile Include="..\Source\ParticleDescriptor.cpp" />
@@ -111,11 +112,13 @@
     <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\TextureLoader.cpp" />
+    <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Animation.h" />
     <ClInclude Include="..\Source\Billboard.h" />
+    <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
@@ -129,12 +132,16 @@
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\TextureLoader.h" />
+    <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Scenes\AnimatedScene.scene" />
     <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene" />
     <None Include="..\Assets\Scenes\CoordinateSystem.scene" />
+    <None Include="..\Assets\Scenes\pillarM.scene" />
+    <None Include="..\Assets\Scenes\project.scene" />
+    <None Include="..\Assets\Scenes\spline.scene" />
     <None Include="..\Assets\Scenes\StaticScene.scene" />
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader" />
     <None Include="..\Assets\Shaders\PathLines.fragmentshader" />

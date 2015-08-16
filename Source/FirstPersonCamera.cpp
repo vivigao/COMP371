@@ -21,6 +21,12 @@ void FirstPersonCamera::Update(float dt){
 	// Prevent from having the camera move only when the cursor is within the windows
 	EventManager::DisableMouseCursor();
 
+	mat4 transform(1.0f);
+	transform = targetModel -> GetWorldMatrix();
+	vec4 modelPosition = transform * vec4(targetModel->GetCurrentPosition(),1.0f);
+	mPosition = vec3( modelPosition[0],(modelPosition[1]+0.5f), modelPosition[2]);
+
+
 	// The Camera moves based on the User inputs
 	// - You can access the mouse motion with EventManager::GetMouseMotionXY()
 	// - For mapping A S D W, you can look in World.cpp for an example of accessing key states
@@ -39,10 +45,15 @@ void FirstPersonCamera::Update(float dt){
 
 	float theta = radians(mHorizontalAngle);
 	float phi = radians(mVerticalAngle);
+	//vec4 l = transform * vec4 (targetModel->GetNextPosition(),1.0f);
+	mLookAt =- normalize(targetModel->GetCurrentPosition());;
+		//normalize(vec3 (l[0],l[1],l[2]));
+		//vec3(cosf(phi)*cosf(theta), sinf(phi), -cosf(phi)*sinf(theta));
+		//normalize(targetModel->GetNextPosition());//
 
-	mLookAt = vec3(cosf(phi)*cosf(theta), sinf(phi), -cosf(phi)*sinf(theta));
+	upVector = vec3 (-mLookAt[2], mLookAt[1], mLookAt[0]);
 	
-	vec3 sideVector = glm::cross(mLookAt, vec3(0.0f, 1.0f, 0.0f));
+	vec3 sideVector = glm::cross(mLookAt, upVector);
 	glm::normalize(sideVector);
 
 	// A S D W for motion along the camera basis vectors
@@ -60,5 +71,5 @@ void FirstPersonCamera::Update(float dt){
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const{
-	return glm::lookAt(	mPosition, mPosition + mLookAt, vec3(0.0f, 1.0f, 0.0f) );
+	return glm::lookAt(	mPosition, mPosition + mLookAt, upVector );
 }

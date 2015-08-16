@@ -41,6 +41,9 @@ public:
 	ci_string GetName() const;
 //	void SetMName(string& name) { mName = name.c_str(); }
 	ci_string mName; // The model name is mainly for debugging
+
+	glm::vec3 GetNextPosition();
+	glm::vec3 GetCurrentPosition();
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
 

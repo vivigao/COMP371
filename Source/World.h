@@ -8,6 +8,8 @@
 #pragma once
 #include "ParsingHelper.h"
 #include "Billboard.h"
+#include "CubeModel.h"
+#include "SphereModel.h"
 #include <vector>
 
 class Camera;
@@ -39,6 +41,9 @@ public:
     void RemoveBillboard(Billboard* b);
     void AddParticleSystem(ParticleSystem* particleSystem);
     void RemoveParticleSystem(ParticleSystem* particleSystem);
+
+	CubeModel *ourGuy;
+	SphereModel *ourSphere;
     
 private:
     static World* instance;

@@ -196,3 +196,29 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const{
 
 	return tr * quatRo * sc;//tr * sc * ro
 }
+
+glm::vec3 Animation::GetNextPosition(){	
+	vec3 currentPosition;
+
+	for (int i = 0; i<mKeyTime.size()-1; i++){
+
+		if (mCurrentTime <= mKeyTime[i+1]){
+			currentPosition = mKey[i+1].GetPosition();
+			break;
+		}
+	}
+	return currentPosition;
+}
+
+glm::vec3 Animation::GetCurrentPosition(){	
+	vec3 currentPosition;
+
+	for (int i = 0; i<mKeyTime.size(); i++){
+
+		if (mCurrentTime <= mKeyTime[i+1]){
+			currentPosition = mKey[i].GetPosition();
+			break;
+		}
+	}
+	return currentPosition;
+}

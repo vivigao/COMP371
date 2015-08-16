@@ -74,6 +74,12 @@
     <ClCompile Include="..\Source\ParticleSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\BSpline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -124,6 +130,12 @@
     <ClInclude Include="..\Source\TextureLoader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\BSpline.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ThirdPersonCamera.h">
+      <Filter>Source Files\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader">
@@ -158,6 +170,15 @@
     </None>
     <None Include="..\Assets\Shaders\Texture.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\project.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\pillarM.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\spline.scene">
+      <Filter>Resource Files\Scenes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

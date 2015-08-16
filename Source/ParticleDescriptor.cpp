@@ -22,10 +22,10 @@ void ParticleDescriptor::SetFountainDescriptor()
     initialSize = vec2(0.4f, 0.4f);
     initialSizeDelta = vec2(0.1f, 0.1f);
     sizeGrowthVelocity = vec2(1.4f, 1.4f);
-    
-    initialColor = vec4(1.0f, 1.0f, 1.0f, 0.0f);
-    midColor = vec4(0.9f, 0.9f, 1, 1.0f);
-    endColor = vec4(0.5f, 0.6f, 1.0f, 0.0f);
+
+	initialColor = vec4(0.5f, 0.5f, 0.5f, 0.0f);
+    midColor = vec4(0.8f, 0.8f, 1.0f, 1.0f);
+    endColor = vec4(0.5f, 0.5f, 0.5f, 0.0f);
 
     emissionRate = 50.0f;
     fadeInTime = 0.2f;

@@ -150,3 +150,15 @@ void Model::SetRotation(glm::vec3 axis, float angleDegrees){
 }
 
 void Model::SetName(string &name){ mName = name.c_str();}
+
+vec3 Model::GetCurrentPosition()
+{ vec3 currentPositon;
+ currentPositon = mAnimation->GetCurrentPosition();
+ return currentPositon;
+}
+
+vec3 Model::GetNextPosition()
+{ vec3 currentPositon;
+ currentPositon = mAnimation->GetNextPosition();
+ return currentPositon;
+}

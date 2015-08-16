@@ -11,6 +11,7 @@
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "ThirdPersonCamera.h"
 
 #include "BSpline.h"
 #include "CubeModel.h"
@@ -43,8 +44,19 @@ World::World()
 {
   instance = this;
 
+  	ourGuy = new CubeModel();
+	ourSphere = new SphereModel();
+	vec3 guyPosition = ourGuy->GetPosition();
+	ThirdPersonCamera *newThirdCamera = new ThirdPersonCamera (guyPosition);
+	newThirdCamera ->SetTargetModel(ourGuy);
+	//mModel.push_back(ourGuy);
+
+	FirstPersonCamera *newFirstCamera = new FirstPersonCamera (guyPosition);
+	newFirstCamera ->setTargetModel(ourGuy);
+	mCamera.push_back(newThirdCamera);
+
 	// Setup Camera
-	mCamera.push_back(new FirstPersonCamera(vec3(3.0f, 1.0f, 5.0f)));
+	//mCamera.push_back(new FirstPersonCamera(vec3(3.0f, 1.0f, 5.0f)));
 	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCurrentCamera = 0;
@@ -217,8 +229,8 @@ void World::LoadScene(const char * scene_path)
 			if( result == "cube" ){
 				// Box attributes
 				CubeModel* cube = new CubeModel();
-				cube->Load(iss);
-				mModel.push_back(cube);
+				ourGuy->Load(iss);
+				mModel.push_back(ourGuy);
 			}
             else if( result == "sphere" ){
                 SphereModel* sphere = new SphereModel();
