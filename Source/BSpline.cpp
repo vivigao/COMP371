@@ -520,15 +520,15 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 			pos.x = b0 * GetPoint(j, map)[0] +
 				b1 * GetPoint(j + 1, map)[0] +
 				b2 * GetPoint(j + 2, map)[0] +
-				b3 * GetPoint(j + 3, map)[0];
+				b3 * GetPoint(j + 3, map)[0] - 3;
 			pos.y = (b0 * GetPoint(j, map)[1] +
 				b1 * GetPoint(j + 1, map)[1] +
 				b2 * GetPoint(j + 2, map)[1] +
-				b3 * GetPoint(j + 3, map)[1]); // pos.z = -...
+				b3 * GetPoint(j + 3, map)[1]) - 8.5; // pos.z = -...
 			pos.z = b0 * GetPoint(j, map)[2] +
 				b1 * GetPoint(j + 1, map)[2] +
 				b2 * GetPoint(j + 2, map)[2] +
-				b3 * GetPoint(j + 3, map)[2]; // pos.y
+				b3 * GetPoint(j + 3, map)[2] - 5.5; // pos.y
 
 			// specify the point
 /*			vertexBuffer[j*LOD + i].position = pos;
@@ -549,7 +549,7 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					if (slope < 0)
 						velocity = acceleration * slope;
 					else if (slope > 0)
-						velocity = acceleration * slope * 0.55f;// climbing hill also has resistance
+						velocity = acceleration * slope * 1.11;
 					else{
 						if (actualSpeed > 10)
 							velocity = -0.01;
@@ -561,22 +561,22 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 				actualSpeed += velocity * 0.77; // assume ground resistance = 0.77
 				if (actualSpeed < 3)
 					actualSpeed = 3;
-				else if (actualSpeed > 23)
-					actualSpeed = 23;
+				else if (actualSpeed > 25)
+					actualSpeed = 25;
 
 				totalTime += (dist / actualSpeed);//*/
 
 				if (abs(abs(lastX - pos.x) - abs(lastZ - pos.z)) < 0.01 || lastX == 0 && lastY == 0 && lastX == 0){
 					aKeyRo = "";//nothing happen
 				}
-/*				else if (abs(lastX - pos.x) > abs(lastZ - pos.z)){
+				else if (abs(lastX) - abs(pos.x) < abs(lastZ) - abs(pos.z)){
 					//if (lastX - pos.x < 0)
 					hSlope = (lastX - pos.x) / pow(pow(lastZ - pos.z, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastX - pos.x) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
 
 					key->SetRotation( vec3(1.0, 0.0, 0.0), hSlope*hAngle);
 				}
-				else if (abs(lastZ - pos.z) > abs(lastX - pos.x)){
+				else if (abs(lastZ) - abs(pos.z) < abs(lastX) - abs(pos.x)){
 					//if (lastZ - pos.z < 0)
 					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
 					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
@@ -584,17 +584,24 @@ BSpline::BSpline(vec3 color) : Model(), noOfPoints(1392), LOD(4) {
 					key->SetRotation( vec3(0.0, 0.0, 1.0), hSlope*hAngle);
 				}//*/
 				else{
-					hSlope = (lastZ - pos.z) / pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5);
-					hAngle = acos((lastZ - pos.z) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
+/*					hSlope = (lastX - pos.x) / pow(pow(lastZ - pos.z, 2) + pow(lastY - pos.y, 2), 0.5);
+					hAngle = acos((lastX - pos.x) / (dist)); //pow( pow( pow(pow(lastX - pos.x, 2) + pow(lastY - pos.y, 2), 0.5), 2) + pow((lastZ - pos.z), 2), 0.5)
 
-					key->SetRotation(vec3(0.0, 0.0, 1.0), hSlope*hAngle);
+					key->SetRotation(vec3(1.0, 0.0, 0.0), hSlope*hAngle);//*/
 				} 
 
-        string temp = "\"lineK" + to_string((j*LOD + i)) + "\"";
+				string temp = "\"lineK" + to_string((j*LOD + i)) + "\"";
 				key->mName = temp.c_str();
 				key->SetPosition( pos );
 				World::GetInstance()->AddAnimationKey(key);
 				ani->AddKey(key, totalTime);
+
+				if ((j*LOD + i)%16 == 0 && pillarF != NULL){
+					pModel = "[Cube]\nname  = \"Cube\"\nscaling  = 0.3 " + to_string(pos.y + 6.4) + " 0.3\nposition = "
+						+ to_string(pos.x) + " " + to_string(pos.y-(pos.y)*0.5-3.25) + " " + to_string(pos.z) + "\n";
+					const char* temp2 = pModel.c_str();
+					fputs(temp2, pillarF);
+				}
 
 				lastY = pos.y;
 				lastX = pos.x;

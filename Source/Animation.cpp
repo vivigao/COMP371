@@ -45,9 +45,9 @@ void Animation::CreateVertexBuffer(){
     for (int i=0; i<mKey.size(); ++i){
         v.position = mKey[i].mPosition;
 
-		v.position.x = v.position.x-0.5;
+		v.position.x = v.position.x-0.25;
         mVertexBuffer.push_back(v);
-		v.position.x = v.position.x+0.5;
+		v.position.x = v.position.x+0.75;
         mVertexBuffer.push_back(v);
     }
 /*	for (int i=0; i<mKey.size(); ++i){
