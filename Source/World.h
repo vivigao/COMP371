@@ -12,6 +12,7 @@
 
 class Camera;
 class Model;
+class ObjectModel;
 class Animation;
 class AnimationKey;
 class ParticleSystem;
@@ -43,6 +44,7 @@ private:
     static World* instance;
     
 	std::vector<Model*> mModel;
+  ObjectModel* mMap;
     std::vector<Animation*> mAnimation;
     std::vector<AnimationKey*> mAnimationKey;
 	std::vector<Camera*> mCamera;
