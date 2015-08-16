@@ -14,7 +14,7 @@
 class ObjectModel : public Model
 {
 public:
-	ObjectModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	ObjectModel(const char * objectpath);
 	virtual ~ObjectModel();
 
 	virtual void Update(float dt);
@@ -23,18 +23,12 @@ public:
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
 
-private:
-	// The vertex format could be different for different types of models
-	struct Vertex
-	{
-		glm::vec3 position;
-		glm::vec3 normal;
-		glm::vec3 color;
-	};
-  
+private:  
   unsigned int mVertexSize;
-
+  
 	unsigned int mVertexArrayID;
+  
 	unsigned int mVertexBufferID;
   unsigned int mUVBufferID;
+  unsigned int mNormalBufferID;
 };

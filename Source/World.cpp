@@ -168,6 +168,8 @@ void World::Draw(){
 	}//*/
     Renderer::CheckForErrors();
   
+  Renderer::SetShader((ShaderType) prevShader);
+  
   mMap->Draw();
     
     // Draw Billboards
@@ -178,7 +180,7 @@ void World::Draw(){
 		(*it)->Draw();//*/
 
 	// Restore previous shader
-	Renderer::SetShader((ShaderType) prevShader);
+//	Renderer::SetShader((ShaderType) prevShader);
 	Renderer::EndFrame();
 }
 
@@ -222,14 +224,14 @@ void World::LoadScene(const char * scene_path){
 				mAnimation.push_back(anim);
 			}
       else if (result == "map") {
-        mMap = new ObjectModel();
+        mMap = new ObjectModel("Objects/map.obj");
         mMap->Load(iss);
       }
 			else if (result == "bspline"){
 				BSpline* spline = new BSpline();
 				spline->Load(iss);
 				mBSpline.push_back(spline);
-			}//*/
+			}
 			else if ( result.empty() == false && result[0] == '#'){
 				// this is a comment line
 			}

@@ -61,23 +61,30 @@ void Renderer::Initialize(){
     std::string shaderPathPrefix = "../Assets/Shaders/";
 #endif
 
-	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
-                            shaderPathPrefix + "SolidColor.fragmentshader")
-                               );
-	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "PathLines.vertexshader",
-                            shaderPathPrefix + "PathLines.fragmentshader")
-                               );
-	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
-                            shaderPathPrefix + "BlueColor.fragmentshader")
-                               );
-    sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "Texture.vertexshader",
-                            shaderPathPrefix + "Texture.fragmentshader")
-                               );
-
+  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
+                                         shaderPathPrefix + "SolidColor.fragmentshader"));
+  
+  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "PathLines.vertexshader",
+                                         shaderPathPrefix + "PathLines.fragmentshader"));
+  
+  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
+                                         shaderPathPrefix + "BlueColor.fragmentshader"));
+  
+  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "Texture.vertexshader",
+                                         shaderPathPrefix + "Texture.fragmentshader"));
+  
+//  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "DepthRTT.vertexshader",
+//                                         shaderPathPrefix + "DepthRTT.fragmentshader"));
+  
+//  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "Passthrough.vertexshader",
+//                                         shaderPathPrefix + "SimpleTexture.fragmentshader"));
+  
+//  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "ShadowMapping.vertexshader",
+//                                         shaderPathPrefix + "ShadowMapping.fragmentshader"));
+  
+  sShaderProgramID.push_back(LoadShaders(shaderPathPrefix + "phong.vertexshader",
+                                         shaderPathPrefix + "phong.fragmentshader"));
+  
 	sCurrentShader = 0;
 }
 
