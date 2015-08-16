@@ -63,14 +63,14 @@ ObjectModel::ObjectModel(const char * objectpath) : Model()
 
 ObjectModel::~ObjectModel()
 {
-	glDeleteBuffers(1, &mVertexBufferID);
+  glDeleteBuffers(1, &mVertexBufferID);
   glDeleteBuffers(1, &mUVBufferID);
-	glDeleteVertexArrays(1, &mVertexArrayID);
+  glDeleteVertexArrays(1, &mVertexArrayID);
 }
 
 void ObjectModel::Update(float dt)
 {
-	Model::Update(dt);
+  Model::Update(dt);
 }
 
 void ObjectModel::Draw()
@@ -78,8 +78,8 @@ void ObjectModel::Draw()
   unsigned int prevShader = Renderer::GetCurrentShader();
   Renderer::SetShader(SHADER_PHONG);
   glUseProgram(Renderer::GetShaderProgramID());
-
-	glBindVertexArray(mVertexArrayID);
+  
+  glBindVertexArray(mVertexArrayID);
   
   
   /***** Send uniforms
@@ -92,7 +92,7 @@ void ObjectModel::Draw()
   
   GLuint ViewMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
   glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &cam->GetViewMatrix()[0][0]);
-
+  
   GLuint ProjectionMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectionTransform");
   glUniformMatrix4fv(ProjectionMatrixID, 1, GL_FALSE, &cam->GetProjectionMatrix()[0][0]);
   
@@ -115,7 +115,7 @@ void ObjectModel::Draw()
   glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
   glUniform3f(LightColorID, lightColor.r, lightColor.g, lightColor.b);
   glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
-
+  
   
   /***** Send buffers
    */
@@ -130,7 +130,7 @@ void ObjectModel::Draw()
                         0,                            // stride
                         (void*)0                      // array buffer offset
                         );
-	
+  
   // 2nd attribute buffer : normals
   glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, mNormalBufferID);
@@ -147,9 +147,9 @@ void ObjectModel::Draw()
    */
   
   glDrawArrays(GL_TRIANGLES, 0, mVertexSize);
-
+  
   glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(0);
   
   Renderer::CheckForErrors();
   Renderer::SetShader((ShaderType) prevShader);
@@ -157,8 +157,8 @@ void ObjectModel::Draw()
 
 bool ObjectModel::ParseLine(const std::vector<ci_string> &token)
 {
-	if (token.empty())
-		return true;
-	else
-		return Model::ParseLine(token);
+  if (token.empty())
+    return true;
+  else
+    return Model::ParseLine(token);
 }
