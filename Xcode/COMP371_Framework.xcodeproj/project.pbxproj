@@ -33,6 +33,9 @@
 		03FE4ED41B2FA1210020F06F /* Scenes in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FE4ED21B2FA1010020F06F /* Scenes */; };
 		03FE4ED51B2FA1210020F06F /* Shaders in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03FE4ED31B2FA1010020F06F /* Shaders */; };
 		03FE4ED81B2FA9830020F06F /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FE4ED61B2FA9830020F06F /* Animation.cpp */; };
+		B56A6DE11B806CC50016A1B0 /* ObjectLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B56A6DDF1B806CC50016A1B0 /* ObjectLoader.cpp */; };
+		B56A6DE41B806F8B0016A1B0 /* ObjectModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B56A6DE21B806F8B0016A1B0 /* ObjectModel.cpp */; };
+		B56A6DE61B8077680016A1B0 /* Objects in CopyFiles */ = {isa = PBXBuildFile; fileRef = B56A6DE51B8077030016A1B0 /* Objects */; };
 		B5B085781B7FF650000885CD /* BSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5B085761B7FF650000885CD /* BSpline.cpp */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				B56A6DE61B8077680016A1B0 /* Objects in CopyFiles */,
 				03DB7BB71B5456A800B0CC69 /* Textures in CopyFiles */,
 				03FE4ED41B2FA1210020F06F /* Scenes in CopyFiles */,
 				03FE4ED51B2FA1210020F06F /* Shaders in CopyFiles */,
@@ -96,6 +100,11 @@
 		03FE4ED31B2FA1010020F06F /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../Assets/Shaders; sourceTree = "<group>"; };
 		03FE4ED61B2FA9830020F06F /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		03FE4ED71B2FA9830020F06F /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		B56A6DDF1B806CC50016A1B0 /* ObjectLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectLoader.cpp; sourceTree = "<group>"; };
+		B56A6DE01B806CC50016A1B0 /* ObjectLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectLoader.h; sourceTree = "<group>"; };
+		B56A6DE21B806F8B0016A1B0 /* ObjectModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectModel.cpp; sourceTree = "<group>"; };
+		B56A6DE31B806F8B0016A1B0 /* ObjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectModel.h; sourceTree = "<group>"; };
+		B56A6DE51B8077030016A1B0 /* Objects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Objects; path = ../Assets/Objects; sourceTree = "<group>"; };
 		B5B085761B7FF650000885CD /* BSpline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSpline.cpp; sourceTree = "<group>"; };
 		B5B085771B7FF650000885CD /* BSpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSpline.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +144,7 @@
 		034F0BB31A7010160028E1BA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B56A6DE51B8077030016A1B0 /* Objects */,
 				03FE4ED21B2FA1010020F06F /* Scenes */,
 				03FE4ED31B2FA1010020F06F /* Shaders */,
 				03DB7BB61B543CF800B0CC69 /* Textures */,
@@ -178,14 +188,16 @@
 		B56A6DD91B8068500016A1B0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B5B085761B7FF650000885CD /* BSpline.cpp */,
-				B5B085771B7FF650000885CD /* BSpline.h */,
-				03FE4E971B2F8D990020F06F /* CubeModel.cpp */,
-				03FE4E981B2F8D990020F06F /* CubeModel.h */,
 				03FE4E9E1B2F8D990020F06F /* Model.cpp */,
 				03FE4E9F1B2F8D990020F06F /* Model.h */,
+				03FE4E971B2F8D990020F06F /* CubeModel.cpp */,
+				03FE4E981B2F8D990020F06F /* CubeModel.h */,
 				03FE4EA51B2F8D990020F06F /* SphereModel.cpp */,
 				03FE4EA61B2F8D990020F06F /* SphereModel.h */,
+				B56A6DE21B806F8B0016A1B0 /* ObjectModel.cpp */,
+				B56A6DE31B806F8B0016A1B0 /* ObjectModel.h */,
+				B5B085761B7FF650000885CD /* BSpline.cpp */,
+				B5B085771B7FF650000885CD /* BSpline.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -245,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				03FE4EA01B2F8D990020F06F /* ParsingHelper.h */,
+				B56A6DDF1B806CC50016A1B0 /* ObjectLoader.cpp */,
+				B56A6DE01B806CC50016A1B0 /* ObjectLoader.h */,
 				039EC68A1B4DAFEA0061B0B7 /* TextureLoader.cpp */,
 				039EC68B1B4DAFEA0061B0B7 /* TextureLoader.h */,
 			);
@@ -319,7 +333,9 @@
 				039EC6891B4DAFD90061B0B7 /* ParticleSystem.cpp in Sources */,
 				03FE4EB51B2F8D990020F06F /* World.cpp in Sources */,
 				039EC68C1B4DAFEA0061B0B7 /* TextureLoader.cpp in Sources */,
+				B56A6DE41B806F8B0016A1B0 /* ObjectModel.cpp in Sources */,
 				03FE4EB21B2F8D990020F06F /* Renderer.cpp in Sources */,
+				B56A6DE11B806CC50016A1B0 /* ObjectLoader.cpp in Sources */,
 				03FE4EB01B2F8D990020F06F /* Model.cpp in Sources */,
 				03FE4EAF1B2F8D990020F06F /* main.cpp in Sources */,
 				03FE4EAB1B2F8D990020F06F /* Camera.cpp in Sources */,

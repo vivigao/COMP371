@@ -14,6 +14,7 @@
 
 #include "BSpline.h"
 #include "CubeModel.h"
+#include "ObjectModel.h"
 #include "SphereModel.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -77,7 +78,9 @@ World::~World(){
 	for (vector<BSpline*>::iterator it = mBSpline.begin(); it < mBSpline.end(); ++it)
 		delete *it;
 	mBSpline.clear();//*/
-
+  
+  delete mMap;
+  
 	delete mpBillboardList;
 }
 
@@ -164,6 +167,8 @@ void World::Draw(){
 		(*it)->Draw();
 	}//*/
     Renderer::CheckForErrors();
+  
+  mMap->Draw();
     
     // Draw Billboards
 //    mpBillboardList->Draw();
@@ -215,7 +220,11 @@ void World::LoadScene(const char * scene_path){
 				Animation* anim = new Animation();
 				anim->Load(iss);
 				mAnimation.push_back(anim);
-			}//*/
+			}
+      else if (result == "map") {
+        mMap = new ObjectModel();
+        mMap->Load(iss);
+      }
 			else if (result == "bspline"){
 				BSpline* spline = new BSpline();
 				spline->Load(iss);
